@@ -12,7 +12,6 @@
     "raveren/kint": "^1.0",
     "symfony/yaml": "^3.2",
     "danielmewes/php-rql": "^2.3",
-    "mpociot/botman": "^1.4",
     "cboden/ratchet": "^0.3.6",
     "coderstephen/slack-client": "^0.2.5"
   },

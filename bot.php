@@ -2,29 +2,40 @@
 
 require_once 'vendor/autoload.php';
 
-$loop = React\EventLoop\Factory::create();
+use React\EventLoop\Factory;
 
-$client = new Slack\RealTimeClient($loop);
-$client->setToken(\Nuntius\Nuntius::getSettings()['bot_id']);
+$token = \Nuntius\Nuntius::getSettings()['bot_id'];
+
+$client_loop = React\EventLoop\Factory::create();
+$client = new Slack\RealTimeClient($client_loop);
+$client->setToken($token);
 
 // disconnect after first message
-$client->on('message', function ($data) use ($client) {
-  var_dump($data);
-  $client->getDMByUserId($data['user'])->then(function (\Slack\DirectMessageChannel $channel) use ($client) {
-    $client->send('Hello from PHP!', $channel);
+$client->on('presence_change', function ($data) use ($client) {
+
+  if ($data['presence'] == 'away') {
+    return;
+  }
+
+  $client->getUserById($data['user'])->then(function (Slack\User $user) use ($client) {
+
+    if ($user->getUsername() != 'roysegall') {
+      return;
+    }
+
+    $client->getDMByUserId($user->getId())->then(function (\Slack\DirectMessageChannel $channel) use ($client) {
+      $client->send('Welcome back creator!', $channel);
+    });
   });
+
 });
 
-$client->on('user_typing', function ($data) use ($client) {
-//  var_dump($data);
-});
+$client->on('message',  function($data) use ($client) {
 
-$client->on('user_typing', function ($data) use ($client) {
-//  var_dump($data);
 });
 
 $client->connect()->then(function () {
   echo "Connected!\n";
 });
 
-$loop->run();
+$client_loop->run();
