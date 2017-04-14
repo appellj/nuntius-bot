@@ -8,37 +8,22 @@ use React\EventLoop\Factory;
 $token = \Nuntius\Nuntius::getSettings()['bot_id'];
 
 // Adding plugins.
-$plugin = \Nuntius\Nuntius::getPluginManager();
-$plugin->addPlugin('presence_change', '\Nuntius\Plugin\PresenceChanged');
+$plugin_manager = \Nuntius\Nuntius::getPluginManager();
+$plugin_manager->addPlugin('presence_change', 'Nuntius\Plugin\PresenceChanged');
 
 // Set up stuff.
 $client_loop = React\EventLoop\Factory::create();
 $client = new Slack\RealTimeClient($client_loop);
 $client->setToken($token);
 
-// disconnect after first message
-$client->on('presence_change', function ($data) use ($client) {
+foreach ($plugin_manager->getPlugins() as $event => $namespace) {
+  $plugin = new $namespace($client);
 
-  if ($data['presence'] == 'away') {
-    return;
-  }
-
-  $client->getUserById($data['user'])->then(function (Slack\User $user) use ($client) {
-
-    if ($user->getUsername() != 'roysegall') {
-      return;
-    }
-
-    $client->getDMByUserId($user->getId())->then(function (\Slack\DirectMessageChannel $channel) use ($client) {
-      $client->send('Welcome back creator!', $channel);
-    });
+  $client->on($event, function ($data) use ($plugin) {
+    $plugin->data = $data;
   });
+}
 
-});
-
-$client->on('message',  function($data) use ($client) {
-
-});
 
 $client->connect()->then(function () {
   echo "Connected!\n";
