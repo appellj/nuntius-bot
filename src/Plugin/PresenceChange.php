@@ -6,12 +6,17 @@ use Nuntius\NuntiusPluginAbstract;
 use Slack\DirectMessageChannel;
 use Slack\User;
 
+/**
+ * Class PresenceChange.
+ *
+ * Triggered when the user's status has changed.
+ */
 class PresenceChange extends NuntiusPluginAbstract {
 
   /**
    * {@inheritdoc}
    */
-  protected function action() {
+  public function action() {
 
     if ($this->data['presence'] == 'away') {
       return;

@@ -41,6 +41,18 @@ abstract class NuntiusPluginAbstract {
   /**
    * The action to commit when the event on slack is triggered.
    */
-  abstract protected function action();
+  abstract public function action();
+
+  /**
+   * Invoking an action before triggering the action method.
+   */
+  public function preAction() {
+  }
+
+  /**
+   * Invoking an action after the action method was triggered.
+   */
+  public function postAction() {
+  }
 
 }
