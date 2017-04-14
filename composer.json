@@ -9,11 +9,12 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "raveren/kint": "^1.0",
+    "kint-php/kint": "^1.0",
     "symfony/yaml": "^3.2",
     "danielmewes/php-rql": "^2.3",
     "cboden/ratchet": "^0.3.6",
-    "coderstephen/slack-client": "^0.2.5"
+    "coderstephen/slack-client": "^0.2.5",
+    "symfony/validator": "^3.2"
   },
   "autoload": {
     "psr-4": {

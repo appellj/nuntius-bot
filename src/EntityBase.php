@@ -34,21 +34,31 @@ abstract class EntityBase implements EntityBaseInterface {
   }
 
   /**
-   * Describing the entities properties and parameters.
-   *
-   * @return array
+   * {@inheritdoc}
    */
   public function describe() {
     return [
-      'id' => [],
     ];
   }
 
   /**
-   * Loading all the entities.
+   * {@inheritdoc}
    */
   public function loadAll() {
-    $this->db->getTable($this->entityID);
+    return $this->db->getTable($this->entityID)->run($this->db->getConnection())->toArray();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function load($id) {
+    return $this->db->getTable($this->entityID)->get($id)->run($this->db->getConnection())->getArrayCopy();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function insert(array $item) {
   }
 
 }
