@@ -34,31 +34,49 @@ abstract class EntityBase implements EntityBaseInterface {
   }
 
   /**
-   * {@inheritdoc}
+   * Get the table handler.
+   *
+   * @return \r\Queries\Tables\Table
    */
-  public function describe() {
-    return [
-    ];
+  public function getTable() {
+    return $this->db->getTable($this->entityID);
   }
 
   /**
    * {@inheritdoc}
    */
   public function loadAll() {
-    return $this->db->getTable($this->entityID)->run($this->db->getConnection())->toArray();
+    return $this->getTable()->run($this->db->getConnection())->toArray();
   }
 
   /**
    * {@inheritdoc}
    */
   public function load($id) {
-    return $this->db->getTable($this->entityID)->get($id)->run($this->db->getConnection())->getArrayCopy();
+    return $this->getTable()->get($id)->run($this->db->getConnection())->getArrayCopy();
   }
 
   /**
    * {@inheritdoc}
    */
   public function insert(array $item) {
+    $result = $this->getTable()->insert($item)->run($this->db->getConnection())->getArrayCopy();
+
+    return $this->load(reset($result['generated_keys']));
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function delete($id) {
+    $this->getTable()->get($id)->delete()->run($this->db->getConnection());
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function update($id, $data) {
+    $this->getTable()->get($id)->update($data)->run($this->db->getConnection());
   }
 
 }

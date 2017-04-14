@@ -8,13 +8,6 @@ namespace Nuntius;
 interface EntityBaseInterface {
 
   /**
-   * Describing the entities properties and parameters.
-   *
-   * @return array
-   */
-  public function describe();
-
-  /**
    * Loading all the entities.
    *
    * @return array
@@ -41,5 +34,22 @@ interface EntityBaseInterface {
    */
   public function insert(array $item);
 
+  /**
+   * Delete an entry from the DB.
+   *
+   * @param $id
+   *   The entity ID.
+   */
+  public function delete($id);
+
+  /**
+   * Updating an entry in the DB.
+   *
+   * @param $id
+   *   The entity ID.
+   * @param $data
+   *   The data to update.
+   */
+  public function update($id, $data);
 
 }
