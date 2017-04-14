@@ -24,13 +24,4 @@ class Nuntius {
     return new NuntiusRethinkdb(self::getSettings()['rethinkdb']);
   }
 
-  /**
-   * Get the plugin manager.
-   *
-   * @return NuntiusPluginManager
-   */
-  public static function getPluginManager() {
-    return new NuntiusPluginManager(self::getSettings()['path']);
-  }
-
 }

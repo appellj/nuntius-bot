@@ -4,6 +4,8 @@ rethinkdb:
   db: nuntius
   api_key:
   timeout: 30
+events:
+  presence_change: '\Nuntius\Plugin\PresenceChange'
 schemes:
   - songs
   - reminders
