@@ -21,6 +21,13 @@ abstract class NuntiusPluginAbstract {
   protected $client;
 
   /**
+   * The entity manager.
+   *
+   * @var \Nuntius\EntityManager
+   */
+  protected $entityManager;
+
+  /**
    * Information about the action.
    *
    * @var array
@@ -36,6 +43,7 @@ abstract class NuntiusPluginAbstract {
   function __construct(RealTimeClient $client) {
     $this->db = Nuntius::getRethinkDB();
     $this->client = $client;
+    $this->entityManager = Nuntius::getEntityManager();
   }
 
   /**

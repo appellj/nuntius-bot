@@ -27,6 +27,16 @@ interface EntityBaseInterface {
   public function load($id);
 
   /**
+   * Load multiple entities from the DB.
+   *
+   * @param array $ids
+   *   List of entity IDs.
+   *
+   * @return EntityBaseInterface[]
+   */
+  public function loadMultiple($ids);
+
+  /**
    * Inert an entry to the DB.
    *
    * @param array $item

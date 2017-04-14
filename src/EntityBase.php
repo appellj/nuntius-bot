@@ -78,6 +78,20 @@ abstract class EntityBase implements EntityBaseInterface {
   /**
    * {@inheritdoc}
    */
+  public function loadMultiple($ids) {
+    $results = [];
+
+    foreach ($this->getTable()->getAll(\r\args($ids))->run($this->db->getConnection()) as $result) {
+      $data = $result->getArrayCopy();
+      $results[$data['id']] = $this->createInstance($data);
+    }
+
+    return $results;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function load($id) {
     $data = $this->getTable()->get($id)->run($this->db->getConnection())->getArrayCopy();
     return $this->createInstance($data);
