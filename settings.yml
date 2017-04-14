@@ -6,6 +6,7 @@ rethinkdb:
   timeout: 30
 events:
   presence_change: '\Nuntius\Plugin\PresenceChange'
+  message: '\Nuntius\Plugin\Message'
 entities:
   reminders: '\Nuntius\Entity\Reminders'
 bot_id: 'xoxb-122081602870-2jU3wQr1gQX34XcrWujySmyD'
