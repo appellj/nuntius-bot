@@ -44,4 +44,11 @@ abstract class EntityBase implements EntityBaseInterface {
     ];
   }
 
+  /**
+   * Loading all the entities.
+   */
+  public function loadAll() {
+    $this->db->getTable($this->entityID);
+  }
+
 }

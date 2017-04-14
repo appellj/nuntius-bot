@@ -21,7 +21,7 @@ class EntityManager {
     $db = Nuntius::getRethinkDB();
 
     foreach ($entities as $entity => $namespace) {
-      $this->entities[$entity] = new $namespace($db);
+      $this->entities[$entity] = new $namespace($db, $entity);
     }
   }
 

@@ -6,4 +6,4 @@ $entityManager = \Nuntius\Nuntius::getEntityManager();
 
 $reminder = $entityManager->get('reminders');
 
-Kint::dump($reminder);
+Kint::dump($reminder->loadAll());
