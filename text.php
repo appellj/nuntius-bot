@@ -2,7 +2,8 @@
 
 require_once 'vendor/autoload.php';
 
-$plugin = \Nuntius\Nuntius::getPluginManager();
+$entityManager = \Nuntius\Nuntius::getEntityManager();
 
-$plugin->addPlugin('presence_changed', '\Nuntius\Plugin\PresenceChanged');
-Kint::dump($plugin->getPlugin('presence_changed'));
+$reminder = $entityManager->get('reminders');
+
+Kint::dump($reminder);

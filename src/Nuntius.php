@@ -24,4 +24,16 @@ class Nuntius {
     return new NuntiusRethinkdb(self::getSettings()['rethinkdb']);
   }
 
+  /**
+   * Get the entity manager.
+   *
+   * @return EntityManager
+   *   The entity manager.
+   */
+  public static function getEntityManager() {
+    $entities = self::getSettings()['entities'];
+
+    return new EntityManager($entities);
+  }
+
 }
