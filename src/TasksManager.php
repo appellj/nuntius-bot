@@ -63,11 +63,7 @@ class TasksManager {
           continue;
         }
 
-        return [
-          'task' => $task,
-          'callback' => $scope['callback'],
-          'arguments' => $arguments,
-        ];
+        return [$task, $scope['callback'], $arguments];
       }
     }
 
