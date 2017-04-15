@@ -102,6 +102,11 @@ abstract class EntityBase implements EntityBaseInterface {
    * {@inheritdoc}
    */
   public function insert(array $item) {
+
+    if (!isset($item['time'])) {
+      $item['time'] = time();
+    }
+
     $result = $this->getTable()->insert($item)->run($this->db->getConnection())->getArrayCopy();
 
     return $this->load(reset($result['generated_keys']));

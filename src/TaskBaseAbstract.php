@@ -91,7 +91,7 @@ abstract class TaskBaseAbstract implements TaskBaseInterface {
   /**
    * {@inheritdoc}
    */
-  public function actOnPresenceChange($presence) {
+  public function actOnPresenceChange() {
     // Do nothing by default.
   }
 

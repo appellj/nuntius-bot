@@ -34,8 +34,15 @@ class Reminders extends TaskBaseAbstract implements TaskBaseInterface {
    *   You got it dude!
    */
   public function addReminder($reminder) {
-    return 'You got it!';
+    $this
+      ->entityManager
+      ->get('reminders')
+      ->insert([
+        'reminder' => $reminder,
+        'user' => $this->data['user'],
+      ]);
 
+    return 'OK! I got you covered!';
   }
 
 }
