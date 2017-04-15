@@ -34,7 +34,7 @@ class Nuntius {
       else {
         // The setting is not an array(bot access token) - the local settings
         // call the shot for the value of the setting.
-        $settings[$key] = $local_settings[$key];
+        $settings[$key] = isset($local_settings[$key]) ? $local_settings[$key] : '';
       }
 
     }
