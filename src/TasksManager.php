@@ -69,8 +69,13 @@ class TasksManager {
       $scopes = $task->scope();
 
       foreach ($scopes as $sentence => $scope) {
+
         if (!$arguments = $this->matchTemplate($text, $sentence)) {
           continue;
+        }
+
+        if ($arguments === TRUE) {
+         $arguments = [];
         }
 
         return [$task, $scope['callback'], $arguments];

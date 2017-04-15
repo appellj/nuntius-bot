@@ -11,4 +11,5 @@ entities:
   reminders: '\Nuntius\Entity\Reminders'
 tasks:
   reminders: '\Nuntius\Tasks\Reminders'
+  help: '\Nuntius\Tasks\Help'
 bot_id: 'xoxb-122081602870-2jU3wQr1gQX34XcrWujySmyD'
