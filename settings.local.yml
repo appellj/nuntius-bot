@@ -1,7 +1,0 @@
-rethinkdb:
-  host: localhost
-  port: 28015
-  db: nuntius
-  api_key:
-  timeout: 30
-access_token: 'xoxb-122081602870-2jU3wQr1gQX34XcrWujySmyD'
