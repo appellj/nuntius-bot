@@ -16,6 +16,8 @@ interface TaskBaseInterface {
 
   /**
    * Acting when the user logged in or out.
+   *
+   * @todo: move to a dispatch event system.
    */
   public function actOnPresenceChange();
 
