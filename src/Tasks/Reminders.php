@@ -2,6 +2,8 @@
 
 namespace Nuntius\Tasks;
 
+use Nuntius\EntityManager;
+use Nuntius\NuntiusRethinkdb;
 use Nuntius\TaskBaseAbstract;
 use Nuntius\TaskBaseInterface;
 use Slack\DirectMessageChannel;
@@ -10,6 +12,22 @@ use Slack\DirectMessageChannel;
  * Remind to the user something to do.
  */
 class Reminders extends TaskBaseAbstract implements TaskBaseInterface {
+
+  /**
+   * Reminder entity.
+   *
+   * @var \Nuntius\Entity\Reminders
+   */
+  protected $reminders;
+
+  /**
+   * {@inheritdoc}
+   */
+  function __construct(NuntiusRethinkdb $db, $task_id, EntityManager $entity_manager) {
+    parent::__construct($db, $task_id, $entity_manager);
+
+    $this->reminders = $this->entityManager->get('reminders');
+  }
 
   /**
    * {@inheritdoc}
@@ -47,7 +65,7 @@ class Reminders extends TaskBaseAbstract implements TaskBaseInterface {
         $this->client->send($text, $channel);
 
         // Delete the reminder from the DB.
-        $this->entityManager->get('reminders')->delete($result['id']);
+        $this->reminders->delete($result['id']);
       });
     }
   }
@@ -62,13 +80,10 @@ class Reminders extends TaskBaseAbstract implements TaskBaseInterface {
    *   You got it dude!
    */
   public function addReminder($reminder) {
-    $this
-      ->entityManager
-      ->get('reminders')
-      ->insert([
-        'reminder' => $reminder,
-        'user' => $this->data['user'],
-      ]);
+    $this->reminders->insert([
+      'reminder' => $reminder,
+      'user' => $this->data['user'],
+    ]);
 
     return 'OK! I got you covered!';
   }
