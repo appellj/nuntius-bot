@@ -22,9 +22,10 @@ class TasksManager {
    */
   function __construct($tasks) {
     $db = Nuntius::getRethinkDB();
+    $entity_manager = Nuntius::getEntityManager();
 
     foreach ($tasks as $task => $namespace) {
-      $this->tasks[$task] = new $namespace($db, $task);
+      $this->tasks[$task] = new $namespace($db, $task, $entity_manager);
     }
   }
 

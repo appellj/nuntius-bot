@@ -12,4 +12,12 @@ interface TaskBaseInterface {
    */
   public function info();
 
+  /**
+   * Acting when the user logged in or out.
+   *
+   * @param string $presence
+   *   The status of the user.
+   */
+  public function actOnPresenceChange($presence);
+
 }
