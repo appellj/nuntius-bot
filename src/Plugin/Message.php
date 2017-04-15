@@ -2,6 +2,7 @@
 
 namespace Nuntius\Plugin;
 
+use Nuntius\Nuntius;
 use Nuntius\NuntiusPluginAbstract;
 use Slack\Channel;
 use Slack\Payload;
@@ -25,8 +26,30 @@ class Message extends NuntiusPluginAbstract {
       return;
     }
 
-    $this->client->getChannelById($data['channel'])->then(function (Channel $channel) {
-      $this->client->send("I'm to your command!", $channel);
+    $this->client->getChannelById($data['channel'])->then(function (Channel $channel) use ($data) {
+      $this->client->send("Give me a second...", $channel);
+      sleep(1);
+
+      // Clean the text from bot mentioning.
+      $text = str_replace('<@' . $this->getBotUserId() . '> ', '', $data['text']);
+
+      // Look for the matching task handler.
+      $task_handler = Nuntius::getTasksManager();
+
+      if (!$info = $task_handler->getMatchingTask($text)) {
+        $this->client->send("Sorry. I could not find what you want me to do.", $channel);
+        return;
+      }
+
+      list($plugin, $callback, $arguments) = $info;
+
+      $plugin
+        ->setClient($this->client)
+        ->setData($data);
+
+      if ($text = call_user_func_array([$plugin, $callback], $arguments)) {
+        $this->client->send($text, $channel);
+      }
     });
   }
 
@@ -61,11 +84,11 @@ class Message extends NuntiusPluginAbstract {
   /**
    * Checking if the bot was mentioned in the conversation.
    *
-   * @param $text
+   * @param string $text
    *   The text to check.
    *
    * @return bool
-   *   T
+   *   True or False.
    */
   protected function botWasMentioned($text) {
     $words = explode(' ', $text);
@@ -83,6 +106,21 @@ class Message extends NuntiusPluginAbstract {
 
     // No bot was mentioned.
     return FALSE;
+  }
+
+  /**
+   * Get the bot ID.
+   *
+   * @return string
+   *   The bot ID.
+   */
+  protected function getBotUserId() {
+    $bot_id = '';
+    $this->client->getUserByName('nuntius')->then(function (User $user) use (&$bot_id) {
+      $bot_id = $user->data['id'];
+    });
+
+    return $bot_id;
   }
 
 }

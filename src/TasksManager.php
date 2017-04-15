@@ -7,6 +7,8 @@ namespace Nuntius;
  */
 class TasksManager {
 
+  use NuntiusServicesTrait;
+
   /**
    * List of tasks.
    *
@@ -40,6 +42,36 @@ class TasksManager {
    */
   public function get($task) {
     return $this->tasks[$task];
+  }
+
+  /**
+   * Trigger the matching task to the given text.
+   *
+   * @param $text
+   *   The text the user sent.
+   *
+   * @return bool|array
+   *   If found return an array with the task object, callback and arguments.
+   *   If not, return bool.
+   */
+  public function getMatchingTask($text) {
+    foreach ($this->tasks as $task) {
+      $scopes = $task->scope();
+
+      foreach ($scopes as $sentence => $scope) {
+        if (!$arguments = $this->matchTemplate($text, $sentence)) {
+          continue;
+        }
+
+        return [
+          'task' => $task,
+          'callback' => $scope['callback'],
+          'arguments' => $arguments,
+        ];
+      }
+    }
+
+    return FALSE;
   }
 
 }

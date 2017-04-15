@@ -10,7 +10,7 @@ interface TaskBaseInterface {
    * @return mixed
    *   Information about the scope.
    */
-  public function info();
+  public function scope();
 
   /**
    * Acting when the user logged in or out.

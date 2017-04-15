@@ -13,7 +13,7 @@ class Reminders extends TaskBaseAbstract implements TaskBaseInterface {
   /**
    * {@inheritdoc}
    */
-  public function info() {
+  public function scope() {
     return [
       '/remind me (.*)/' => [
         'human_command' => 'remind me REMINDER',
@@ -29,8 +29,12 @@ class Reminders extends TaskBaseAbstract implements TaskBaseInterface {
    *
    * @param string $reminder
    *   The reminder of the user.
+   *
+   * @return string
+   *   You got it dude!
    */
   public function addReminder($reminder) {
+    return 'You got it!';
 
   }
 
