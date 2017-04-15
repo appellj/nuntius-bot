@@ -45,6 +45,16 @@ class TasksManager {
   }
 
   /**
+   * Get all the tasks.
+   *
+   * @return TaskBaseInterface[]
+   *   All the teaks.
+   */
+  public function getTasks() {
+    return $this->tasks;
+  }
+
+  /**
    * Trigger the matching task to the given text.
    *
    * @param $text

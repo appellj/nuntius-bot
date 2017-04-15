@@ -4,4 +4,5 @@ require_once 'vendor/autoload.php';
 
 $tasks = \Nuntius\Nuntius::getTasksManager();
 
-Kint::dump($tasks->getMatchingTask('hi'));
+$reminders = $tasks->get('reminders');
+$reminders->actOnPresenceChange();

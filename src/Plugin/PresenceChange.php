@@ -2,9 +2,8 @@
 
 namespace Nuntius\Plugin;
 
+use Nuntius\Nuntius;
 use Nuntius\NuntiusPluginAbstract;
-use Slack\DirectMessageChannel;
-use Slack\User;
 
 /**
  * Class PresenceChange.
@@ -18,20 +17,14 @@ class PresenceChange extends NuntiusPluginAbstract {
    */
   public function action() {
 
-    if ($this->data['presence'] == 'away') {
-      return;
+    $task_handler = Nuntius::getTasksManager();
+
+    foreach ($task_handler->getTasks() as $task) {
+      $task
+        ->setClient($this->client)
+        ->setData($this->data)
+        ->actOnPresenceChange();
     }
-
-    $this->client->getUserById($this->data['user'])->then(function (User $user) {
-
-      if ($user->getUsername() != 'roysegall') {
-        return;
-      }
-
-      $this->client->getDMByUserId($user->getId())->then(function (DirectMessageChannel $channel) {
-        $this->client->send('Welcome back creator!', $channel);
-      });
-    });
   }
 
 }

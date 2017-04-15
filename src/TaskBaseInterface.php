@@ -2,6 +2,8 @@
 
 namespace Nuntius;
 
+use Slack\RealTimeClient;
+
 interface TaskBaseInterface {
 
   /**
@@ -16,5 +18,27 @@ interface TaskBaseInterface {
    * Acting when the user logged in or out.
    */
   public function actOnPresenceChange();
+
+  /**
+   * Set the client object.
+   *
+   * @param \Slack\RealTimeClient $client
+   *   The client object.
+   *
+   * @return $this
+   *   The current instance.
+   */
+  public function setClient(RealTimeClient $client);
+
+  /**
+   * Set the data form the RTM event.
+   *
+   * @param array $data
+   *   The data of the RTM event.
+   *
+   * @return $this
+   *   The current instance.
+   */
+  public function setData(array $data);
 
 }

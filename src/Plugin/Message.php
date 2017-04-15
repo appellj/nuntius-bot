@@ -5,7 +5,6 @@ namespace Nuntius\Plugin;
 use Nuntius\Nuntius;
 use Nuntius\NuntiusPluginAbstract;
 use Slack\ChannelInterface;
-use Slack\Payload;
 use Slack\User;
 
 /**
@@ -19,8 +18,7 @@ class Message extends NuntiusPluginAbstract {
    * {@inheritdoc}
    */
   public function action() {
-    /** @var Payload $data */
-    $data = $this->data->jsonSerialize();
+    $data = $this->data;
 
     if (!$this->botWasMentioned($data['text'])) {
       return;

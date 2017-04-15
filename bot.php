@@ -19,7 +19,7 @@ foreach ($settings['events'] as $event => $namespace) {
   $plugin = new $namespace($client);
 
   $client->on($event, function ($data) use ($plugin) {
-    $plugin->data = $data;
+    $plugin->data = $data->jsonSerialize();
 
     $plugin->preAction();
     $plugin->action();

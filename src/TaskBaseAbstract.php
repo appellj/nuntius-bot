@@ -60,13 +60,7 @@ abstract class TaskBaseAbstract implements TaskBaseInterface {
   }
 
   /**
-   * Set the client object.
-   *
-   * @param \Slack\RealTimeClient $client
-   *   The client object.
-   *
-   * @return $this
-   *   The current instance.
+   * {@inheritdoc}
    */
   public function setClient(RealTimeClient $client) {
     $this->client = $client;
@@ -75,13 +69,7 @@ abstract class TaskBaseAbstract implements TaskBaseInterface {
   }
 
   /**
-   * Set the data form the RTM event.
-   *
-   * @param array $data
-   *   The data of the RTM event.
-   *
-   * @return $this
-   *   The current instance.
+   * {@inheritdoc}
    */
   public function setData(array $data) {
     $this->data = $data;
