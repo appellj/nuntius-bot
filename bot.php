@@ -6,7 +6,7 @@ use React\EventLoop\Factory;
 
 // Bootstrapping.
 $settings = \Nuntius\Nuntius::getSettings();
-$token = $settings['bot_id'];
+$token = $settings['access_token'];
 
 // Set up stuff.
 $client_loop = React\EventLoop\Factory::create();

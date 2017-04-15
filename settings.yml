@@ -1,9 +1,9 @@
 rethinkdb:
-  host: localhost
-  port: 28015
-  db: nuntius
+  host:
+  port:
+  db:
   api_key:
-  timeout: 30
+  timeout:
 events:
   presence_change: '\Nuntius\Plugin\PresenceChange'
   message: '\Nuntius\Plugin\Message'
@@ -12,4 +12,4 @@ entities:
 tasks:
   reminders: '\Nuntius\Tasks\Reminders'
   help: '\Nuntius\Tasks\Help'
-bot_id: 'xoxb-122081602870-2jU3wQr1gQX34XcrWujySmyD'
+access_token: ''
