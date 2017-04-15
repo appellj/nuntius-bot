@@ -20,6 +20,7 @@ class Message extends NuntiusPluginAbstract {
   public function action() {
     /** @var Payload $data */
     $data = $this->data->jsonSerialize();
+
     if (!$this->botWasMentioned($data['text'])) {
       return;
     }

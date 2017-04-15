@@ -23,6 +23,7 @@ abstract class EntityBase implements EntityBaseInterface {
 
   /**
    * EntityBase constructor.
+   *
    * @param \Nuntius\NuntiusRethinkdb $db
    *   The RethinkDB connection.
    * @param string $entity_id

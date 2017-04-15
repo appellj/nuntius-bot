@@ -36,4 +36,16 @@ class Nuntius {
     return new EntityManager($entities);
   }
 
+  /**
+   * Get the task manager.
+   *
+   * @return \Nuntius\TasksManager
+   *   The task manager object.
+   */
+  public static function getTasksManager() {
+    $tasks = self::getSettings()['tasks'];
+
+    return new TasksManager($tasks);
+  }
+
 }
