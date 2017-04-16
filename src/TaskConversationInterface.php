@@ -63,4 +63,9 @@ interface TaskConversationInterface extends TaskBaseInterface {
    */
   public function collectAllAnswers();
 
+  /**
+   * Starting the conversation.
+   */
+  public function startTalking();
+
 }

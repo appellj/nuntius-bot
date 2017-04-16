@@ -4,6 +4,7 @@ namespace Nuntius\Plugin;
 
 use Nuntius\Nuntius;
 use Nuntius\NuntiusPluginAbstract;
+use Nuntius\TaskConversationInterface;
 use Slack\ChannelInterface;
 use Slack\User;
 
@@ -19,6 +20,8 @@ class Message extends NuntiusPluginAbstract {
    */
   public function action() {
     $data = $this->data;
+
+    // todo: check if we in a conversation.
 
     if (!$this->botWasMentioned($data['text'])) {
       return;
@@ -47,6 +50,11 @@ class Message extends NuntiusPluginAbstract {
       $plugin
         ->setClient($this->client)
         ->setData($data);
+
+      if ($plugin instanceof TaskConversationInterface) {
+        $plugin->startTalking();
+        return;
+      }
 
       if ($text = call_user_func_array([$plugin, $callback], $arguments)) {
         $this->client->send($text, $channel);

@@ -2,13 +2,13 @@
 
 namespace Nuntius\Tasks;
 
-use Nuntius\TaskBaseAbstract;
+use Nuntius\TaskConversationAbstract;
 use Nuntius\TaskConversationInterface;
 
 /**
  * Remind to the user something to do.
  */
-class Introduction extends TaskBaseAbstract implements TaskConversationInterface {
+class Introduction extends TaskConversationAbstract implements TaskConversationInterface {
 
   /**
    * The first name.
