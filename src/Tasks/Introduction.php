@@ -47,7 +47,7 @@ class Introduction extends TaskConversationAbstract implements TaskConversationI
    * Get the user first name.
    */
   public function questionFirstName() {
-    return 'what is you first name?';
+    return 'Oh hey! It look that we are not introduced yet. what is your first name?';
   }
 
   /**

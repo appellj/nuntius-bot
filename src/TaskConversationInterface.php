@@ -1,6 +1,7 @@
 <?php
 
 namespace Nuntius;
+use Slack\ChannelInterface;
 
 /**
  * Base interface for question orientation tasks.
@@ -65,6 +66,9 @@ interface TaskConversationInterface extends TaskBaseInterface {
 
   /**
    * Starting the conversation.
+   *
+   * @return string
+   *   The question.
    */
   public function startTalking();
 

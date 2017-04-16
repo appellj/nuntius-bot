@@ -39,14 +39,19 @@ abstract class TaskConversationAbstract extends TaskBaseAbstract implements Task
       $this->entityManager->get('context')->insert($context);
     }
     else {
-      $current_db_context = reset($db_context)->getArrayCopy();
+      $context = reset($db_context)->getArrayCopy();
 
       // Converting the answers to normal array.
-      $current_db_context['questions'] = $current_db_context['questions']->getArrayCopy();
+      $context['questions'] = $context['questions']->getArrayCopy();
     }
 
     // Fire the question.
-
+    foreach ($context['questions'] as $question => $answer) {
+      if ($answer === FALSE) {
+        return $this->{$question}();
+        break;
+      }
+    }
   }
 
   /**

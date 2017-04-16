@@ -38,8 +38,6 @@ class Message extends NuntiusPluginAbstract {
     $target_channel = $this->isDirectMessage() ? $this->client->getDMByUserId($data['user']) : $this->client->getChannelById($data['channel']);
 
     $target_channel->then(function (ChannelInterface $channel) use ($data) {
-      $this->client->send("Give me a second...", $channel);
-      sleep(1);
 
       // Clean the text from bot mentioning.
       $text = str_replace('<@' . $this->getBotUserId() . '> ', '', $data['text']);
@@ -59,11 +57,13 @@ class Message extends NuntiusPluginAbstract {
         ->setData($data);
 
       if ($plugin instanceof TaskConversationInterface) {
-        $plugin->startTalking();
+        $this->client->send($plugin->startTalking(), $channel);
         return;
       }
 
       if ($text = call_user_func_array([$plugin, $callback], $arguments)) {
+        $this->client->send("Give me a second...", $channel);
+        sleep(1);
         $this->client->send($text, $channel);
       }
     });
