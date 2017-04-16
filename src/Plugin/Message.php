@@ -22,6 +22,13 @@ class Message extends NuntiusPluginAbstract {
     $data = $this->data;
 
     // todo: check if we in a conversation.
+    $running_conversation = FALSE;
+
+    if ($running_conversation) {
+      // This is a running conversation. get the conversation.
+      $conversation = NULL;
+      return;
+    }
 
     if (!$this->botWasMentioned($data['text'])) {
       return;

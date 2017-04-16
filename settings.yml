@@ -10,6 +10,7 @@ events:
 entities:
   reminders: '\Nuntius\Entity\Reminders'
   context: '\Nuntius\Entity\Context'
+  running_context: '\Nuntius\Entity\RunningContext'
 tasks:
   reminders: '\Nuntius\Tasks\Reminders'
   help: '\Nuntius\Tasks\Help'
