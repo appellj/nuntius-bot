@@ -9,6 +9,7 @@ events:
   message: '\Nuntius\Plugin\Message'
 entities:
   reminders: '\Nuntius\Entity\Reminders'
+  context: '\Nuntius\Entity\Context'
 tasks:
   reminders: '\Nuntius\Tasks\Reminders'
   help: '\Nuntius\Tasks\Help'
