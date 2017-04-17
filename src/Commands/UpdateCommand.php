@@ -50,8 +50,6 @@ class UpdateCommand extends Command  {
 
     $output->writeln(['running updates...']);
 
-    $db_updates = $update_manager->getDbProcessedUpdates();
-
     foreach ($updates as $update => $controller) {
       try {
         // Running the update.
@@ -62,7 +60,7 @@ class UpdateCommand extends Command  {
       }
 
       // Register it to the DB.
-      $db_updates->addProcessedUpdate($update);
+      $update_manager->addProcessedUpdate($update);
 
       // Output the result.
       $output->writeln([$result]);

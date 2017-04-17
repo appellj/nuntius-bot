@@ -59,38 +59,36 @@ class UpdateManager {
    *   The list of updates.
    */
   public function getUnProcessedUpdates() {
+    // Update that ran before.
+    $db_updates = $this->getDbProcessedUpdates();
+
     // Go over all the updates.
     $updates = [];
 
     foreach ($this->getUpdates() as $update => $namespace) {
+      if (in_array($update, $db_updates)) {
+        // Already ran before.
+        continue;
+      }
+
       $updates[$update] = new $namespace;
     }
-
-    $db_updates = $this->getDbProcessedUpdates();
 
     if (empty($db_updates)) {
       return $updates;
     }
 
-    return [];
+    return $updates;
   }
 
   /**
    * Get list of processed updates form the DB.
    *
    * @return array
-   *
+   *   List of processed updates.
    */
   public function getDbProcessedUpdates() {
-    $db_updates = Nuntius::getEntityManager()->get('system')->load('updates');
-
-    var_dump($db_updates->processed);
-
-    if (empty($db_updates['processed'])) {
-      return [];
-    }
-
-    return $db_updates['processed'];
+    return Nuntius::getEntityManager()->get('system')->load('updates')->processed;
   }
 
   /**
@@ -100,11 +98,11 @@ class UpdateManager {
    *   The name of the update.
    */
   public function addProcessedUpdate($name) {
-    $updates = $this->getDbProcessedUpdates();
-    $update[] = $name;
-    $db = Nuntius::getRethinkDB();
-    $db->getTable('system')->get('updates')->run($db->getConnection())->getArrayCopy();
-
+    /** @var \Nuntius\Entity\System $updates */
+    $updates = Nuntius::getEntityManager()->get('system')->load('updates');
+    $processed = $updates->processed;
+    $processed[] = $name;
+    Nuntius::getEntityManager()->get('system')->update('updates', ['processed' => $processed]);
   }
 
 }
