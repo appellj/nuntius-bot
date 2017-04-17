@@ -67,7 +67,13 @@ abstract class TaskConversationAbstract extends TaskBaseAbstract implements Task
     // Delete the current running context.
     $this->deleteRunningContext();
 
-    return $this->collectAllAnswers();
+    $text = $this->collectAllAnswers();
+
+    if ($this->conversationScope() != 'forever') {
+      $this->deleteContext();
+    }
+
+    return $text;
   }
 
   /**
@@ -119,6 +125,15 @@ abstract class TaskConversationAbstract extends TaskBaseAbstract implements Task
     $running_context = $this->checkForContext($this->db->getTable('running_context'));
     $running_context = reset($running_context)->getArrayCopy();
     $this->entityManager->get('running_context')->delete($running_context['id']);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function deleteContext() {
+    $running_context = $this->checkForContext($this->db->getTable('context'));
+    $running_context = reset($running_context)->getArrayCopy();
+    $this->entityManager->get('context')->delete($running_context['id']);
   }
 
 }

@@ -1,7 +1,6 @@
 <?php
 
 namespace Nuntius;
-use Slack\ChannelInterface;
 
 /**
  * Base interface for question orientation tasks.
@@ -11,7 +10,6 @@ use Slack\ChannelInterface;
  * the DB but all the answers will be available in the collectAllAnswers method.
  *
  * @code
- *
  *  public function questionFirstName() {
  *    return 'what is your first name?';
  *  }
@@ -24,10 +22,10 @@ use Slack\ChannelInterface;
 interface TaskConversationInterface extends TaskBaseInterface {
 
   /**
-   * Asking the user questions which needed for the current task.
+   * Define the scope of the answers to the questions.
    *
-   * Normal task is a task a black box task - receive an array of arguments
-   * (or not) and do something simple - set a reminder.
+   * Normal task is a black box task - receive an array of arguments (or not)
+   * and do something simple - set a reminder.
    *
    * There are some tasks that need to know context - team members so nuntius
    * could notify team members when the senior developer available. This kind of
@@ -82,5 +80,10 @@ interface TaskConversationInterface extends TaskBaseInterface {
    * After collecting all the answers deleting the running context.
    */
   public function deleteRunningContext();
+
+  /**
+   * When the scope task is not forever, we need to delete the answers.
+   */
+  public function deleteContext();
 
 }
