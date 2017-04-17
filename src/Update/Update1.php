@@ -1,10 +1,10 @@
 <?php
 
-namespace Nuntius\Updates;
+namespace Nuntius\Update;
 
 use Nuntius\UpdateBaseInterface;
 
-class UpdateNuntius1 implements UpdateBaseInterface {
+class Update1 implements UpdateBaseInterface {
 
   /**
    * Describe what the update going to do.

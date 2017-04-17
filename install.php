@@ -14,3 +14,6 @@ foreach (array_keys($value['entities']) as $scheme) {
   $db->createTable($scheme);
   print("The table {$scheme} has created\n");
 }
+
+// Run this again.
+$db->getTable('system')->insert(['id' => 'updates', 'processed' => []])->run($db->getConnection());
