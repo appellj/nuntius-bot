@@ -7,6 +7,7 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 class UpdateCommand extends Command  {
 
@@ -26,16 +27,15 @@ class UpdateCommand extends Command  {
   protected function execute(InputInterface $input, OutputInterface $output) {
     $update_manager = Nuntius::getUpdateManager();
 
+    $io = new SymfonyStyle($input, $output);
+
     if (!$updates = $update_manager->getUnProcessedUpdates()) {
-      $output->writeln(['No updates are available.']);
+      $io->error('No updates are available.');
       return;
     }
 
-    $output->writeln([
-      'Running updates',
-      '============',
-      'There are ' . count($updates) . ' updates: ',
-    ]);
+    $io->section('Running updates');
+    $io->text('There are ' . count($updates) . ' updates: ');
 
     foreach ($updates as $update => $controller) {
       $output->writeln(['Update ' . $update . ': ' . $controller->description()]);
@@ -48,7 +48,7 @@ class UpdateCommand extends Command  {
       return;
     }
 
-    $output->writeln(['running updates...']);
+    $io->text(['running updates...']);
 
     foreach ($updates as $update => $controller) {
       try {
@@ -63,10 +63,10 @@ class UpdateCommand extends Command  {
       $update_manager->addProcessedUpdate($update);
 
       // Output the result.
-      $output->writeln([$result]);
+      $io->text($result);
     }
 
-    $output->writeln(['Updated ran successfully!']);
+    $io->success(['Updated ran successfully!']);
   }
 
 }
