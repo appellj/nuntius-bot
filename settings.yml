@@ -18,7 +18,6 @@ tasks:
   introduction: '\Nuntius\Tasks\Introduction'
 updates:
   '1': '\Nuntius\Update\Update1'
-  '2': '\Nuntius\Update\Update1'
 commands:
   - '\Nuntius\Commands\UpdateCommand'
 access_token: ''
