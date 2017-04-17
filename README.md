@@ -87,6 +87,9 @@ class Message extends NuntiusPluginAbstract {
 
 Everytime someone will send a message the action method will be invoked.
 
+### On presence change
+todo
+
 ## Entities
 At some point you might want to keep stuff in the DB. The database is based on 
 Rethinkdb(it's written in the installation process). Similar to event
@@ -165,3 +168,9 @@ on the code:
     ->run($this->db->getConnection())
     ->toArray();
 ```
+
+## Tasks
+One way to communicate with Nuntius is with text. The tasks plugin needs to 
+declare to which text it's need to response. But there are two types of plugins:
+1. Black box task - 
+2. Conversation task - 
