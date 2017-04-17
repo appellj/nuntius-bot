@@ -11,8 +11,11 @@ entities:
   reminders: '\Nuntius\Entity\Reminders'
   context: '\Nuntius\Entity\Context'
   running_context: '\Nuntius\Entity\RunningContext'
+  system: '\Nuntius\Entity\System'
 tasks:
   reminders: '\Nuntius\Tasks\Reminders'
   help: '\Nuntius\Tasks\Help'
   introduction: '\Nuntius\Tasks\Introduction'
+updates:
+  - '\Nuntius\Update\Introduction'
 access_token: ''
