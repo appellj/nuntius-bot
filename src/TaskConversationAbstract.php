@@ -9,6 +9,13 @@ use r\Queries\Tables\Table;
 abstract class TaskConversationAbstract extends TaskBaseAbstract implements TaskConversationInterface {
 
   /**
+   * List of answers.
+   *
+   * @var array
+   */
+  protected $answers;
+
+  /**
    * {@inheritdoc}
    */
   public function startTalking() {
@@ -49,6 +56,39 @@ abstract class TaskConversationAbstract extends TaskBaseAbstract implements Task
     foreach ($context['questions'] as $question => $answer) {
       if ($answer === FALSE) {
         return $this->{$question}();
+      }
+    }
+
+    // All the questions have been answered. Trigger the end of the session.
+    foreach ($context['questions'] as $key => $value) {
+      $this->answers[str_replace('question', '', $key)] = $value;
+    }
+
+    // Delete the current running context.
+    $this->deleteRunningContext();
+
+    return $this->collectAllAnswers();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function setAnswer($text) {
+    // Prepare the context from the DB.
+    $context = $this->checkForContext($this->db->getTable('context'));
+    var_dump($this->data);
+    $context = reset($context);
+    $context['questions'] = $context['questions']->getArrayCopy();
+
+    // Look for the answer we need to handle.
+    foreach ($context['questions'] as $question => $answer) {
+      if ($answer === FALSE) {
+
+        $context['questions'][$question] = $text;
+
+        $this->entityManager->get('context')
+          ->load($context['id'])
+          ->update($context['id'], $context);
         break;
       }
     }
@@ -70,6 +110,15 @@ abstract class TaskConversationAbstract extends TaskBaseAbstract implements Task
       ->run($this->db->getConnection());
 
     return $results->toArray();
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function deleteRunningContext() {
+    $running_context = $this->checkForContext($this->db->getTable('running_context'));
+    $running_context = reset($running_context)->getArrayCopy();
+    $this->entityManager->get('running_context')->delete($running_context['id']);
   }
 
 }

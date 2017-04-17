@@ -7,12 +7,10 @@ use Slack\ChannelInterface;
  * Base interface for question orientation tasks.
  *
  * Only methods with a 'question' prefix will be triggered. A question method
- * will need to return the text of the question. The value will be store into a
- * variable with the same method name but without the prefix.
+ * will need to return the text of the question. The value will be store into
+ * the DB but all the answers will be available in the collectAllAnswers method.
  *
  * @code
- *  public $name;
- *  public $firstName;
  *
  *  public function questionFirstName() {
  *    return 'what is your first name?';
@@ -60,7 +58,7 @@ interface TaskConversationInterface extends TaskBaseInterface {
   /**
    * When the all answers have been collected this function will be invoked.
    *
-   * The answers won't store automatically due to unknown nature of the task.
+   * The answers are already in the DB and you can use them.
    */
   public function collectAllAnswers();
 
@@ -71,5 +69,18 @@ interface TaskConversationInterface extends TaskBaseInterface {
    *   The question.
    */
   public function startTalking();
+
+  /**
+   * Set the answer for the question.
+   *
+   * @param $answer
+   *   The answer.
+   */
+  public function setAnswer($answer);
+
+  /**
+   * After collecting all the answers deleting the running context.
+   */
+  public function deleteRunningContext();
 
 }

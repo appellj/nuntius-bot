@@ -61,6 +61,7 @@ class Introduction extends TaskConversationAbstract implements TaskConversationI
    * {@inheritdoc}
    */
   public function collectAllAnswers() {
+    return 'Well, ' . $this->answers['FirstName'] . ' ' . $this->answers['LastName'] . ', it is a pleasure.';
   }
 
 }
