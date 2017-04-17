@@ -82,7 +82,6 @@ abstract class TaskConversationAbstract extends TaskBaseAbstract implements Task
   public function setAnswer($text) {
     // Prepare the context from the DB.
     $context = $this->checkForContext($this->db->getTable('context'));
-    var_dump($this->data);
     $context = reset($context);
     $context['questions'] = $context['questions']->getArrayCopy();
 
