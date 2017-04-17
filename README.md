@@ -20,9 +20,9 @@ single man but the name lived on.
 You'll need PHP 5.6 and above, [Composer](http://getcomposer.org) and 
 [RethinkDB](http://rethinkdb.com).
 
-Go to [slack custom integration](https://gizrateam.slack.com/apps/A0F7YS25R-bots)
-to get the bot access token(it will change any day so keep that in mind when 
-updating Nuntius).
+After creating a bot, Go to `https://YOURTEAM.slack.com/apps`. Click on `Manage`
+and under `Custom integration` you'll see your bot. Click on the bot to get the
+access token.
 
 ```bash
 cp settings.local.example.yml settings.local.yml
