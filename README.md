@@ -321,3 +321,60 @@ In case something got in the way and the user lost his internet connection or
 the server went down the answers won't get lost. The answers stored in the DB
 except for a temporary context conversation. The answers will be deleted in the
 of the process.
+
+## Updates
+You deployed nuntius and you added some functionality but that functionality
+need some new entities tables, maybe change some information about the user etc.
+etc. For that case we an updates mechanism.
+
+Implementing a new update:
+```yml
+updates:
+  1: '\Nuntius\Update\Update1'
+```
+
+The code look pretty obvious:
+```php
+<?php
+
+namespace Nuntius\Update;
+
+class Update1 implements UpdateBaseInterface {
+
+  /**
+   * Describe what the update going to do.
+   *
+   * @return string
+   *   What the update going to do.
+   */
+  public function description() {
+    return 'Example update';
+  }
+
+  /**
+   * Running the update.
+   *
+   * @return string
+   *   A message for what the update did.
+   */
+  public function update() {
+    return 'You run a simple update. Nothing happens but this update will not run again.';
+  }
+
+}
+```
+
+About the methods:
+* `description`: explain what the update is going to do.
+* `update`: Preform the update. The text the function will return will shown 
+after the update was invoked successfully.
+
+Couple of rules:
+1. Updates that invoked before won't invoked again.
+2. The update will be invoked in the order in the yml file.
+3. When installing nuntius, all the listed updates will be marked as updates 
+which invoked already.
+
+## Commands
+
+## Uncovered API to this point
