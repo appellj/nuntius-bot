@@ -88,7 +88,57 @@ class Message extends NuntiusPluginAbstract {
 Everytime someone will send a message the action method will be invoked.
 
 ### On presence change
-todo
+For now, until we will switch to Symfony event dispatcher, events can response
+to presence change, AKA when the user logged out or in. We use that option to
+notify the users for their reminders.
+
+Let's look on how the message:
+
+```php
+<?php
+
+namespace Nuntius\Plugin;
+
+/**
+ * Class Message.
+ *
+ * Triggered when a message eas sent.
+ */
+class Message extends NuntiusPluginAbstract {
+
+  /**
+   * {@inheritdoc}
+   */
+  public function actOnPresenceChange() {
+    if ($this->data['presence'] == 'away') {
+      return;
+    }
+
+    $rows = $this->db
+      ->getTable('reminders')
+      ->filter(\r\row('user')->eq($this->data['user']))
+      ->run($this->db->getConnection());
+
+    foreach ($rows as $row) {
+      $result = $row->getArrayCopy();
+
+      $this->client->getDMByUserId($result['user'])->then(function (DirectMessageChannel $channel) use ($result) {
+        // Send the reminder.
+        $text = 'Hi! You asked me to remind you: ' . $result['reminder'];
+        $this->client->send($text, $channel);
+
+        // Delete the reminder from the DB.
+        $this->reminders->delete($result['id']);
+      });
+    }
+  }
+  
+}
+
+```
+
+In this case we are looking for reminders which the user set and send them as a
+private message.
 
 ## Entities
 At some point you might want to keep stuff in the DB. The database is based on 
