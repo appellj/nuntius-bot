@@ -3,17 +3,17 @@ Gizra became a company when a lot of the employees are remote: USA,
 Canada, Spain and the list goes on. That status required from us to start using 
 Slack. But the problem is that we wanted Slack to be cool. The obvious idea is 
 to have a bot. The bot will interact with us and might improve the way we 
-communicates.
+communicate.
 
 ## Origin
-Like any awesome super hero, Nuntius have an origin story. It's not a tragic 
+Like any awesome superhero, Nuntius have an origin story. It's not a tragic 
 origin story when his uncle-CPU died due to lack of understanding that with 
 great power comes great responsibility.
 
 Nuntius in Latin means messages. That was the original project - a chat based on
 any backend technology: Drupal, Wordpress, NodeJS, etc., etc. that could connect
 to any front end technology(React, Elm, Angular, etc., etc.) and using any 
-websocket service(Socket.IO, Pusher, FireBase). The project was too much for a 
+WebSocket service(Socket.IO, Pusher, FireBase). The project was too much for a 
 single man but the name lived on.
 
 ## Set up.
@@ -41,15 +41,15 @@ That's it. Nuntius is up and running.
 ## Integrating
 Integration can be done through the main `settings.yml` file(or in case you
 forked the project through the `settings.local.yml`). The `settings.local.yml`
-file will override settings of the `settings.yml` file. In that case you can
-override entities, tasks, RTM events, commands and updates.
+the file will override settings of the `settings.yml` file. In that case, you 
+can override entities, tasks, RTM events, commands, and updates.
 
 Let's go through the different integrations.
 
 ## Events
 Integration with slack can be achieved in various ways. Nuntius implementing the
-integration via websocket and push events AKA RTM events. For any operation on
-slack there is a matching RTM event. You can look on the list 
+integration via WebSocket and push events AKA RTM events. For any operation on
+slack, there is a matching RTM event. You can look on the list 
 [here](https://api.slack.com/rtm#events).
 
 Let's see how to interact with the message events. In the `settings.yml` we have
@@ -60,8 +60,8 @@ events:
   message: '\Nuntius\Plugin\Message'
 ```
 
-The `message` key paired with the namespace for the class that need to implement
-the logic for the events. Let's have a look at the code:
+The `message` key paired with the namespace for the class that needs to 
+implement the logic for the events. Let's have a look at the code:
 
 ```php
 <?php
@@ -85,7 +85,7 @@ class Message extends NuntiusPluginAbstract {
 }
 ```
 
-Everytime someone will send a message the action method will be invoked.
+Every time someone will send a message the action method will be invoked.
 
 ### On presence change
 For now, until we will switch to Symfony event dispatcher, events can response
@@ -137,7 +137,7 @@ class Message extends NuntiusPluginAbstract {
 
 ```
 
-In this case we are looking for reminders which the user set and send them as a
+In this case, we are looking for reminders which the user set and send them as a
 private message.
 
 ## Entities
@@ -153,7 +153,7 @@ entities:
   system: '\Nuntius\Entity\System'
 ```
 
-You could implement a methods relate to the entity in the matching class but you
+You could implement methods relate to the entity in the matching class but you
 will see that the basic methods are enough.
 
 ### Add an entry
@@ -207,7 +207,7 @@ will see that the basic methods are enough.
 ```
 
 ### Query in the DB
-Except for the CRUD layer, sometime you need to look for items. Have a look at
+Except for the CRUD layer, sometimes you need to look for items. Have a look at
 on the code:
 ```php
 <?php
@@ -221,7 +221,7 @@ on the code:
 
 ## Tasks
 One way to communicate with Nuntius is via text. The tasks plugin needs to
-declare to which text it's need to response AKA scope:
+declare to which text it needs to response AKA scope:
 
 ```yml
 tasks:
@@ -231,10 +231,10 @@ tasks:
 ```
 
 There two types of plugins:
-1. Black box task - A task that needs arguments, or not, and do a simple job: 
+1. Black box task - A task that needs arguments, or not, and does a simple job: 
 set a reminder for later.
 2. Conversation task - A task which depends on information and can get it by
-asking the user a couple of questions. Each conversation task have a 
+asking the user a couple of questions. Each conversation task has a 
 conversation scope:
   * Forever - a scope that likely won't change in the near future: List of the
   user's team members.
@@ -292,13 +292,13 @@ class Reminders extends TaskBaseAbstract implements TaskBaseInterface {
 ```
 In the `method` scope we define to which text we need to respond. Each `(.*)` is
 an argument. The keys meaning are:
-  * `human_command`: An example on how user input should be.
+  * `human_command`: An example of how user input should be.
   * `description`: Describing what the command will do.
-  * `callback`: The callback which will be invoked with the argument you excpect
+  * `callback`: The callback which will be invoked with the argument you expect
   to receive.
   
 ### Conversation task
-Let's look first on the code and explain how to write the plugin:
+Let's look first at the code and explain how to write the plugin:
 ```php
 <?php
 
@@ -333,7 +333,7 @@ class Introduction extends TaskConversationAbstract implements TaskConversationI
    * Get the user first name.
    */
   public function questionFirstName() {
-    return 'Oh hey! It look that we are not introduced yet. what is your first name?';
+    return 'Oh hey! It looks that we are not introduced yet. what is your first name?';
   }
 
   /**
@@ -359,13 +359,13 @@ This is the way we recognize this a conversation task.
 
 Similar to the black box task we do define a scope but in this case, we don't
 define a callback. That's because nuntius will ask the question by a naming
-conventions method: only method that start with `question` will be invoked. The
-method need to return the text of the question. The questions will be triggered
-by the order in the class - so keep on a rational order of methods.
+conventions method:  methods that which owns `question` will be invoked. The
+method needs to return the text of the question. The questions will be triggered
+by the order in the class - so keep in a rational order of methods.
 
-When nuntius collected all the methods, the `collectAllAnswers` will invoked.
+When nuntius collected all the methods, the `collectAllAnswers` will invoke.
 The answers will be available in the `answers` property with the matching name
-of the method which holds the question but with out the `question` prefix.
+of the method which holds the question but without the `question` prefix.
 
 In case something got in the way and the user lost his internet connection or
 the server went down the answers won't get lost. The answers stored in the DB
@@ -374,8 +374,8 @@ of the process.
 
 ## Updates
 You deployed nuntius and you added some functionality but that functionality
-need some new entities tables, maybe change some information about the user etc.
-etc. For that case we an updates mechanism.
+needs some new entities tables, maybe change some information about the user 
+etc. etc. For that case, we have the updates mechanism.
 
 Implementing a new update:
 ```yml
@@ -416,10 +416,10 @@ class Update1 implements UpdateBaseInterface {
 
 About the methods:
 * `description`: explain what the update is going to do.
-* `update`: Preform the update. The text the function will return will shown 
+* `update`: Preform the update. The text the function will return will show 
 after the update was invoked successfully.
 
-Couple of rules:
+A couple of rules:
 1. Updates that invoked before won't invoked again.
 2. The update will be invoked in the order in the yml file.
 3. When installing nuntius, all the listed updates will be marked as updates 
@@ -438,7 +438,7 @@ commands:
   - '\Nuntius\Commands\InstallCommand'
 ```
 
-Let's have a look on the code that install Nuntius for us:
+Let's have a look at the code that installs Nuntius for us:
 ```php
 <?php
 
@@ -494,7 +494,7 @@ class InstallCommand extends Command  {
 
 ## Uncovered API to this point
 We covered a lot of the integration you can have with Nuntius and slack but
-let's look on some code snippets:
+let's look at some code snippets:
 
 ### The managers
 
