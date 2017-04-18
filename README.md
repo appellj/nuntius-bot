@@ -41,10 +41,9 @@ That's it. Nuntius is up and running.
 ## Integrating
 Integration can be done through the main `settings.yml` file(or in case you
 forked the project through the `settings.local.yml`). The `settings.local.yml`
-the file will override settings of the `settings.yml` file. In that case, you 
-can override entities, tasks, RTM events, commands, and updates.
+file will override the settings of the `settings.yml` file.
 
-Let's go through the different integrations.
+Let's go through the various integrations.
 
 ## Events
 Integration with slack can be achieved in various ways. Nuntius implementing the
@@ -90,7 +89,7 @@ Every time someone will send a message the action method will be invoked.
 ### On presence change
 For now, until we will switch to Symfony event dispatcher, events can response
 to presence change, AKA when the user logged out or in. We use that option to
-notify the users for their reminders.
+notify the users for the reminders.
 
 Let's look on how the message:
 
@@ -137,13 +136,13 @@ class Message extends NuntiusPluginAbstract {
 
 ```
 
-In this case, we are looking for reminders which the user set and send them as a
+In this case, we are looking for reminders which the user set and send it as a
 private message.
 
 ## Entities
 At some point you might want to keep stuff in the DB. The database is based on 
-Rethinkdb(it's written in the installation process). Similar to event
-integration definition, entity defined in the `settings.yml` file:
+Rethinkdb. Similar to event integration definition, entity defined in the 
+`settings.yml` file:
 ```yml
 entities:
   reminders: '\Nuntius\Entity\Reminders'
@@ -208,7 +207,7 @@ will see that the basic methods are enough.
 
 ### Query in the DB
 Except for the CRUD layer, sometimes you need to look for items. Have a look at
-on the code:
+the code:
 ```php
 <?php
   \Nuntius\Nuntius::getRethinkDB()
@@ -220,15 +219,16 @@ on the code:
 ```
 
 ## Tasks
-One way to communicate with Nuntius is via text. The tasks plugin needs to
-declare to which text it needs to response AKA scope:
-
+One way to communicate with Nuntius is via text. First, let's have a look at the
+`settings.yml` file:
 ```yml
 tasks:
   reminders: '\Nuntius\Tasks\Reminders'
   help: '\Nuntius\Tasks\Help'
   introduction: '\Nuntius\Tasks\Introduction'
 ```
+
+The tasks plugin needs to declare to which text it needs to response AKA scope:
 
 There two types of plugins:
 1. Black box task - A task that needs arguments, or not, and does a simple job: 
@@ -359,18 +359,19 @@ This is the way we recognize this a conversation task.
 
 Similar to the black box task we do define a scope but in this case, we don't
 define a callback. That's because nuntius will ask the question by a naming
-conventions method:  methods that which owns `question` will be invoked. The
-method needs to return the text of the question. The questions will be triggered
-by the order in the class - so keep in a rational order of methods.
+conventions method: methods with a `question` prefix will be invoked(similar to 
+Unit test). The method needs to return the text of the question. The questions 
+will be triggered by the order in the class - so keep in a rational order of 
+methods.
 
-When nuntius collected all the methods, the `collectAllAnswers` will invoke.
+When nuntius collected all the answers, the `collectAllAnswers` will be invoked.
 The answers will be available in the `answers` property with the matching name
 of the method which holds the question but without the `question` prefix.
 
 In case something got in the way and the user lost his internet connection or
 the server went down the answers won't get lost. The answers stored in the DB
-except for a temporary context conversation. The answers will be deleted in the
-of the process.
+except for a temporary context conversation. The answers will move into an
+archive and won't be available for next time the conversation will start.
 
 ## Updates
 You deployed nuntius and you added some functionality but that functionality
