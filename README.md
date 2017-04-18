@@ -443,3 +443,88 @@ class InstallCommand extends Command  {
 ```
 
 ## Uncovered API to this point
+We covered a lot of the integration you can have with Nuntius and slack but
+let's look on some code snippets:
+
+### The managers
+
+Get the settings:
+```php
+<?php
+\Nuntius\Nuntius::getSettings();
+```
+
+Get the DB layer:
+```php
+<?php
+\Nuntius\Nuntius::getRethinkDB();
+```
+
+Get the entity manager:
+```php
+<?php
+\Nuntius\Nuntius::getEntityManager();
+```
+
+Get the task manager:
+```php
+<?php
+\Nuntius\Nuntius::getTasksManager();
+```
+
+Get the update manager:
+```php
+<?php
+\Nuntius\Nuntius::getUpdateManager();
+```
+
+### Slack how to
+
+How to send a message to the user:
+
+```php
+<?php
+
+namespace Nuntius\Plugin;
+
+/**
+ * Class Message.
+ *
+ * Triggered when a message eas sent.
+ */
+class Message extends NuntiusPluginAbstract {
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function action() {
+      $this->client->getDMByUserId('USER_ID')->then(function (ChannelInterface $channel) {
+       $this->client->send('Hi user!', $channel);
+     });
+    }
+}
+```
+
+Send message in a room:
+```php
+<?php
+
+namespace Nuntius\Plugin;
+
+/**
+ * Class Message.
+ *
+ * Triggered when a message eas sent.
+ */
+class Message extends NuntiusPluginAbstract {
+    
+  /**
+   * {@inheritdoc}
+   */
+  public function action() {
+    $this->client->getChannelById('ROOM_ID')->then(function (ChannelInterface $channel) {
+      $this->client->send('Hi there room members', $channel);
+    });
+  }
+}
+```
