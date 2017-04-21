@@ -2,6 +2,7 @@
 
 namespace tests;
 use Nuntius\Nuntius;
+use Nuntius\Tasks\Reminders;
 use Nuntius\TasksManager;
 
 /**
@@ -62,6 +63,25 @@ class TasksTest extends TestsAbstract {
       'help' => $this->tasks->get('help'),
       'introduction' => $this->tasks->get('introduction'),
     ]);
+  }
+
+  /**
+   * Testing reminder set up.
+   */
+  public function testReminders() {
+    /** @var Reminders $reminders */
+    $reminders = $this->tasks->get('reminders');
+    $reminders
+      ->setData(['user' => 'Major. Tom'])
+      ->addReminder('foo bar is my best stuff!');
+
+    $results = $this->rethinkdb
+      ->getTable('reminders')
+      ->filter(\r\row('user')->eq('Major. Tom'))
+      ->filter(\r\row('reminder')->eq('foo bar is my best stuff!'))
+      ->run($this->rethinkdb->getConnection());
+
+    $this->assertEquals(count($results->toArray()), 1);
   }
 
 }
