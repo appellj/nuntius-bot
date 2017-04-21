@@ -30,6 +30,12 @@ abstract class TestsAbstract extends \PHPUnit_Framework_TestCase {
     parent::tearDown();
 
     foreach (array_keys(Nuntius::getSettings()['entities']) as $table) {
+
+      if ($table == 'system') {
+        // Don't truncate the update table.
+        continue;
+      }
+
       $this->rethinkdb->truncateTable($table);
     }
   }
