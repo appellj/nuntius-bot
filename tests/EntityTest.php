@@ -25,9 +25,13 @@ class EntityTest extends TestsAbstract {
     $this->entities = Nuntius::getEntityManager();
   }
 
+  /**
+   * Testing entities crud operation.
+   */
   public function testEntitiesCrud() {
-    $this->crudOperations('context');
-
+    foreach (array_keys(Nuntius::getSettings()['entities']) as $entity) {
+      $this->crudOperations($entity);
+    }
   }
 
   /**
