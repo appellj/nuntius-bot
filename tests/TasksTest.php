@@ -4,6 +4,7 @@ namespace tests;
 use Nuntius\Nuntius;
 use Nuntius\Tasks\Reminders;
 use Nuntius\TasksManager;
+use Slack\RealTimeClient;
 
 /**
  * Testing tasks.
@@ -69,9 +70,7 @@ class TasksTest extends TestsAbstract {
    * Testing reminder set up.
    */
   public function testReminders() {
-    /** @var Reminders $reminders */
-    $reminders = $this->tasks->get('reminders');
-    $reminders
+    $this->tasks->get('reminders')
       ->setData(['user' => 'Major. Tom'])
       ->addReminder('foo bar is my best stuff!');
 
@@ -82,6 +81,17 @@ class TasksTest extends TestsAbstract {
       ->run($this->rethinkdb->getConnection());
 
     $this->assertEquals(count($results->toArray()), 1);
+  }
+
+  /**
+   * Testing help.
+   */
+  public function testHelp() {
+    $helps = [
+      '`remind me REMINDER`: Next time you log in I will remind you what you  wrote in the REMINDER',
+      '`nice to meet you`: We will do a proper introduction',
+    ];
+    $this->assertEquals($this->tasks->get('help')->listOfScopes(), implode("\n", $helps));
   }
 
 }
