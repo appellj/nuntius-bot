@@ -81,7 +81,7 @@ class TasksTest extends TestsAbstract {
       ->filter(\r\row('reminder')->eq('foo bar is my best stuff!'))
       ->run($this->rethinkdb->getConnection());
 
-    $this->assertEquals(count($results->toArray()), 1);
+    $this->assertEquals(count($results->toArray()), 21);
   }
 
 }
