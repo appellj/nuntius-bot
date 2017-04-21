@@ -2,6 +2,7 @@
 
 namespace tests;
 use Nuntius\Nuntius;
+use Nuntius\Tasks\Introduction;
 use Nuntius\Tasks\Reminders;
 use Nuntius\TasksManager;
 use Slack\RealTimeClient;
@@ -92,6 +93,19 @@ class TasksTest extends TestsAbstract {
       '`nice to meet you`: We will do a proper introduction',
     ];
     $this->assertEquals($this->tasks->get('help')->listOfScopes(), implode("\n", $helps));
+  }
+
+  /**
+   * Testing introduction plugin.
+   */
+  public function testIntroduction() {
+    /** @var Introduction $introduction */
+    $introduction = $this->tasks->get('introduction');
+    $this->assertEquals('Oh hey! It look that we are not introduced yet. what is your first name?', $introduction->startTalking());
+    $introduction->setAnswer('Major.');
+    $this->assertEquals('what is your last name?', $introduction->startTalking());
+    $introduction->setAnswer('Tom');
+    $this->assertEquals('Well, Major. Tom, it is a pleasure.', $introduction->startTalking());
   }
 
 }
