@@ -19,7 +19,7 @@ abstract class GithubWebhooksTestsAbstract extends TestsAbstract {
   public function setUp() {
     parent::setUp();
 
-    $this->client = new Client(['base_uri' => $this->localhost]);
+    $this->client = new Client(['base_uri' => getenv('NUNTIUS_BASE_URL')]);
   }
 
 }
