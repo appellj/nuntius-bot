@@ -26,7 +26,7 @@ class Opened extends GitHubWebhooksAbstract implements GitHubWebhooksInterface {
     ];
 
     $this->logger->insert([
-      'logging' => 'opened',
+      'logging' => 'opened_' . $key,
       'payload' => $payload,
     ]);
   }
