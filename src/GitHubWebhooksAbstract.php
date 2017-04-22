@@ -4,6 +4,8 @@ namespace Nuntius;
 
 /**
  * Abstract methods for GitHub webhooks.
+ *
+ * todo: add slack client object as a protected.
  */
 abstract class GitHubWebhooksAbstract implements GitHubWebhooksInterface {
 
@@ -48,6 +50,7 @@ abstract class GitHubWebhooksAbstract implements GitHubWebhooksInterface {
    * {@inheritdoc}
    */
   public function postAct() {
+    // todo: add a flag which control of we want to log the payload.
     $this->logger->insert((array) $this->getData());
   }
 
