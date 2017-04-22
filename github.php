@@ -7,6 +7,10 @@ $client = \Nuntius\Nuntius::bootstrap();
 $_POST['payload'] = empty($_POST['payload']) ? file_get_contents("php://input") : $_POST['payload'];
 
 if (empty($_POST['payload'])) {
+  \Nuntius\Nuntius::getEntityManager()->get('logger')->insert([
+    'type' => 'error',
+    'error' => 'No payload found in the post.',
+  ]);
   return;
 }
 
