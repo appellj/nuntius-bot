@@ -497,7 +497,7 @@ class InstallCommand extends Command  {
 
 ## Webhooks integration - Github
 Yes, there are a lot of slack integrations but most of them pretty generic. 
-They don't provide real feedback from the bot - bad information in the PR or
+They don't provide a real feedback from the bot - bad information in the PR or
 incorrect information in the issue body. Let's have a look on how to set the 
 integration:
 ```yml
@@ -506,7 +506,7 @@ webhooks:
     opened: '\Nuntius\Webhooks\GitHub\Opened'
 ```
 
-Now, let's have a look on the code:
+Now, let's have a look at the code:
 ```php
 
 <?php
@@ -547,7 +547,6 @@ you could write a better integration.
 You can add a logic to the controller that will act after the act method was 
 triggered. That's more suitable for logging stuff rather than implementing a 
 logic:
-
 
 ```php
 <?php
