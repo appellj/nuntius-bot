@@ -25,5 +25,5 @@ commands:
   - '\Nuntius\Commands\InstallCommand'
 webhooks:
   github:
-    opened: '\Nuntius\Webhooks\Github\Opened'
+    opened: '\Nuntius\Webhooks\GitHub\Opened'
 access_token: ''

@@ -10,7 +10,7 @@ interface GitHubWebhooksInterface {
   /**
    * The data payload.
    *
-   * @param $data
+   * @param \stdClass $data
    *   The payload data.
    *
    * @return $this
