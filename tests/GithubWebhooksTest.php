@@ -21,6 +21,8 @@ class GithubWebhooksTest extends GithubWebhooksTestsAbstract {
       ->run($this->rethinkdb->getConnection())
       ->toArray();
 
+    var_dump($failed_success);
+
     // Making sure a request without payload failed.
     $this->assertNotEmpty($failed_success);
   }
