@@ -113,9 +113,7 @@ class Nuntius {
    *   The entity manager.
    */
   public static function getEntityManager() {
-    $entities = self::getSettings()['entities'];
-
-    return new EntityManager($entities);
+    return self::container()->get('manager.entity')->setEntities(self::getSettings()['entities']);
   }
 
   /**

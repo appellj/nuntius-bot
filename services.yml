@@ -2,3 +2,7 @@ services:
 
   rethinkdb:
      class: \Nuntius\NuntiusRethinkdb
+
+  manager.entity:
+    class: \Nuntius\EntityManager
+    arguments: ['@rethinkdb']
