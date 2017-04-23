@@ -103,9 +103,7 @@ class Nuntius {
    * @return NuntiusRethinkdb
    */
   public static function getRethinkDB() {
-    return self::container()->get('rethinkdb')
-      ->setCredentials(self::getSettings()['rethinkdb'])
-      ->connect();
+    return self::container()->get('rethinkdb');
   }
 
   /**

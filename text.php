@@ -4,4 +4,4 @@ require_once 'vendor/autoload.php';
 
 $container = \Nuntius\Nuntius::container();
 
-Kint::dump(\Nuntius\Nuntius::getEntityManager()->get('context'));
+\Nuntius\Nuntius::getEntityManager()->get('logger')->insert(['a' => 'b']);

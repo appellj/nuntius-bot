@@ -24,37 +24,17 @@ class NuntiusRethinkdb {
   protected $db;
 
   /**
-   * The credentials for the DB connection.
-   *
-   * @var array
+   * NuntiusRethinkdb constructor.
    */
-  protected $credentials;
-
-  /**
-   * Connecting the the DB.
-   *
-   * @return $this|null
-   *   The current instance of the connection was establish.
-   */
-  function connect() {
-    $this->db = $this->credentials['db'];
-    $this->connection = \r\connect($this->credentials['host'], $this->credentials['port'], $this->credentials['db'], $this->credentials['api_key'], $this->credentials['timeout']);
-    return $this;
-  }
-
-  /**
-   * Set the credentials for the the DB connection.
-   *
-   * @param $credentials
-   *   The credentials for the DB connection.
-   *
-   * @return $this
-   *   The current instance.
-   */
-  public function setCredentials($credentials) {
-    $this->credentials = $credentials;
-
-    return $this;
+  function __construct() {
+    // todo: move to settings service.
+    $info = Nuntius::getSettings()['rethinkdb'];
+    $this->db = $info['db'];
+    try {
+      $this->connection = \r\connect($info['host'], $info['port'], $info['db'], $info['api_key'], $info['timeout']);
+    } catch (\Exception $e) {
+      print($e->getMessage() . "\n");
+    }
   }
 
   /**
