@@ -9,15 +9,15 @@ services:
 
   manager.entity:
     class: \Nuntius\EntityManager
-    arguments: ['@rethinkdb']
+    arguments: ['@rethinkdb', '@config']
 
   manager.task:
     class: \Nuntius\TasksManager
-    arguments: ['@rethinkdb', '@manager.entity']
+    arguments: ['@rethinkdb', '@manager.entity', '@config']
 
   manager.update:
     class: \Nuntius\UpdateManager
-    arguments: ['@rethinkdb', '@manager.entity']
+    arguments: ['@rethinkdb', '@manager.entity', '@config']
 
   dispatcher:
     class: \Nuntius\NuntiusDispatcher

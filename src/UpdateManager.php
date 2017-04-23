@@ -36,11 +36,11 @@ class UpdateManager {
    * @param EntityManager $entity_manager
    *   The entity manager service.
    */
-  function __construct(NuntiusRethinkdb $db, EntityManager $entity_manager) {
+  function __construct(NuntiusRethinkdb $db, EntityManager $entity_manager, NuntiusConfig $config) {
     $this->db = $db;
     $this->entityManager = $entity_manager;
 
-    $this->setUpdates(Nuntius::getSettings()->getSetting('updates'));
+    $this->setUpdates($config->getSetting('updates'));
   }
 
   /**

@@ -38,11 +38,11 @@ class TasksManager {
    * @param EntityManager $entity_manager
    *   The entity manager service.
    */
-  function __construct(NuntiusRethinkdb $db, EntityManager $entity_manager) {
+  function __construct(NuntiusRethinkdb $db, EntityManager $entity_manager, NuntiusConfig $config) {
     $this->db = $db;
     $this->entityManager = $entity_manager;
 
-    $this->setTasks(Nuntius::getSettings()->getSetting('tasks'));
+    $this->setTasks($config->getSetting('tasks'));
   }
 
   /**

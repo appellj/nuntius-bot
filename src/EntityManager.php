@@ -24,10 +24,10 @@ class EntityManager {
    * @param NuntiusRethinkdb $db
    *   List of all the entities.
    */
-  function __construct(NuntiusRethinkdb $db) {
+  function __construct(NuntiusRethinkdb $db, NuntiusConfig $config) {
     $this->db = $db;
 
-    $this->setEntities(Nuntius::getSettings()->getSetting('entities'));
+    $this->setEntities($config->getSetting('entities'));
   }
 
   /**
