@@ -37,6 +37,8 @@ class TasksManager {
    *   The DB service.
    * @param EntityManager $entity_manager
    *   The entity manager service.
+   * @param NuntiusConfig $config
+   *   The config service.
    */
   function __construct(NuntiusRethinkdb $db, EntityManager $entity_manager, NuntiusConfig $config) {
     $this->db = $db;

@@ -23,9 +23,11 @@ class NuntiusDispatcher {
   /**
    * NuntiusDispatcher constructor.
    *
+   * @param NuntiusConfig $config
+   *   The config service.
    */
-  function __construct() {
-    $this->dispatchers = Nuntius::getSettings()->getSetting('dispatchers');
+  function __construct(NuntiusConfig $config) {
+    $this->dispatchers = $config->getSetting('dispatchers');
   }
 
   /**

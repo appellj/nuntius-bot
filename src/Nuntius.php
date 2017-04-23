@@ -14,7 +14,7 @@ class Nuntius {
    * Bootstrapping the slack bot.
    *
    * @return RealTimeClient
-   *   The client obect.
+   *   The client object.
    *
    * @throws \Exception
    */

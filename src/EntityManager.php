@@ -23,6 +23,8 @@ class EntityManager {
    *
    * @param NuntiusRethinkdb $db
    *   List of all the entities.
+   * @param NuntiusConfig $config
+   *   The config service.
    */
   function __construct(NuntiusRethinkdb $db, NuntiusConfig $config) {
     $this->db = $db;
