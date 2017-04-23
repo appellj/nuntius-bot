@@ -2,45 +2,24 @@
 
 namespace tests;
 
+use Nuntius\Examples\Names\NameEvent;
 use Nuntius\Nuntius;
 
 /**
- * Testing entity.
+ * Testing event dispatcher.
  */
-class UpdateManagerTest extends TestsAbstract {
-
-  /**
-   * The entity manager.
-   *
-   * @var \Nuntius\UpdateManager
-   */
-  protected $updateManger;
-
-  /**
-   * {@inheritdoc}
-   */
-  public function setUp() {
-    parent::setUp();
-
-    $this->updateManger = Nuntius::getUpdateManager();
-
-    // Empty the processed updates.
-    Nuntius::getEntityManager()->get('system')->update('updates', ['processed' => []]);
-  }
+class EventDispatcherTest extends TestsAbstract {
 
   /**
    * Testing update manager.
    */
   public function testEntitiesCrud() {
-    $this->assertEquals($this->updateManger->getUpdates(), $this->updateManger->getUnProcessedUpdates());
+    $event_dispatcher = Nuntius::getDispatcher();
+    
+    /** @var NameEvent $names */
+    $names = $event_dispatcher->dispatch('names');
 
-    // Run the updates. Checking they not throw any error.
-    foreach ($this->updateManger->getUpdates() as $name => $update) {
-      $update->update();
-      $this->updateManger->addProcessedUpdate($name);
-    }
-
-    $this->assertEquals(array_keys($this->updateManger->getUpdates()), $this->updateManger->getDbProcessedUpdates());
+    $this->assertEquals($names->getNames(), ['Major Tom', 'HAL9000']);
   }
 
 }
