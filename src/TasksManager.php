@@ -42,7 +42,7 @@ class TasksManager {
     $this->db = $db;
     $this->entityManager = $entity_manager;
 
-    $this->setTasks(Nuntius::getSettings()['tasks']);
+    $this->setTasks(Nuntius::getSettings()->getSetting('tasks'));
   }
 
   /**

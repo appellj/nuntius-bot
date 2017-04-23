@@ -40,7 +40,7 @@ class UpdateManager {
     $this->db = $db;
     $this->entityManager = $entity_manager;
 
-    $this->setUpdates(Nuntius::getSettings()['updates']);
+    $this->setUpdates(Nuntius::getSettings()->getSetting('updates'));
   }
 
   /**

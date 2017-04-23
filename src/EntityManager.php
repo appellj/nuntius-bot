@@ -27,7 +27,7 @@ class EntityManager {
   function __construct(NuntiusRethinkdb $db) {
     $this->db = $db;
 
-    $this->setEntities(Nuntius::getSettings()['entities']);
+    $this->setEntities(Nuntius::getSettings()->getSetting('entities'));
   }
 
   /**

@@ -1,7 +1,11 @@
 services:
 
+  config:
+    class: \Nuntius\NuntiusConfig
+
   rethinkdb:
-     class: \Nuntius\NuntiusRethinkdb
+    class: \Nuntius\NuntiusRethinkdb
+    arguments: ['@config']
 
   manager.entity:
     class: \Nuntius\EntityManager

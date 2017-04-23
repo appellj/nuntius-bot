@@ -20,9 +20,6 @@ class Nuntius {
    * @throws \Exception
    */
   public static function bootstrap() {
-    // Bootstrapping.
-    $settings = self::getSettings();
-    $token = $settings['access_token'];
 
     if (empty($token)) {
       throw new \Exception('The access token is missing');
@@ -31,7 +28,7 @@ class Nuntius {
     // Set up stuff.
     $client_loop = Factory::create();
     $client = new RealTimeClient($client_loop);
-    $client->setToken($token);
+    $client->setToken(self::getSettings()->getSetting('access_token'));
 
     return $client;
   }
@@ -39,37 +36,11 @@ class Nuntius {
   /**
    * Getting the settings.
    *
-   * @return array
+   * @return NuntiusConfig
+   *   The nuntius config service.
    */
   public static function getSettings() {
-    $main_settings = Yaml::parse(file_get_contents('settings.yml'));
-
-    $local_settings = [];
-    if (file_exists('settings.local.yml')) {
-      $local_settings = Yaml::parse(file_get_contents('settings.local.yml'));
-    }
-
-    $settings = [];
-    foreach ($main_settings as $key => $value) {
-      // Getting settings from the main default settings.
-      $settings[$key] = $main_settings[$key];
-
-      if (is_array($settings[$key])) {
-        // The setting is defined as settings. Merge the local settings with the
-        // main settings.
-        if (isset($local_settings[$key])) {
-          $settings[$key] = $local_settings[$key] + $main_settings[$key];
-        }
-      }
-      else {
-        // The setting is not an array(bot access token) - the local settings
-        // call the shot for the value of the setting.
-        $settings[$key] = isset($local_settings[$key]) ? $local_settings[$key] : '';
-      }
-
-    }
-
-    return $settings;
+    return self::container()->get('config');
   }
 
   /**
@@ -90,7 +61,7 @@ class Nuntius {
     $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../'));
 
     // Load all the services files.
-    foreach (self::getSettings()['services'] as $service) {
+    foreach (self::getSettings()->getSetting('services') as $service) {
       $loader->load($service);
     }
 
