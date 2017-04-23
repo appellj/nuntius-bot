@@ -25,11 +25,9 @@ class NuntiusRethinkdb {
 
   /**
    * NuntiusRethinkdb constructor.
-   *
-   * @param $info
-   *   DB info.
    */
-  function __construct($info) {
+  function __construct() {
+    $info = Nuntius::getSettings()['rethinkdb'];
     $this->db = $info['db'];
     try {
       $this->connection = \r\connect($info['host'], $info['port'], $info['db'], $info['api_key'], $info['timeout']);

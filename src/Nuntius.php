@@ -3,6 +3,9 @@
 namespace Nuntius;
 
 use Slack\RealTimeClient;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\Yaml\Yaml;
 use React\EventLoop\Factory;
 
@@ -67,6 +70,31 @@ class Nuntius {
     }
 
     return $settings;
+  }
+
+  /**
+   * Get the container.
+   *
+   * @return ContainerBuilder
+   *   The container object.
+   */
+  public static function container() {
+    static $container;
+
+    if ($container) {
+      // We already got the container, return that.
+      return $container;
+    }
+
+    $container = new ContainerBuilder();
+    $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../'));
+
+    // Load all the services files.
+    foreach (self::getSettings()['services'] as $service) {
+      $loader->load($service);
+    }
+
+    return $container;
   }
 
   /**
