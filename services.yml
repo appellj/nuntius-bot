@@ -10,3 +10,7 @@ services:
   manager.task:
     class: \Nuntius\TasksManager
     arguments: ['@rethinkdb', '@manager.entity']
+
+  manager.update:
+    class: \Nuntius\UpdateManager
+    arguments: ['@rethinkdb', '@manager.entity']

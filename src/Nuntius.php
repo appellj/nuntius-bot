@@ -130,11 +130,10 @@ class Nuntius {
    * Get the update manager.
    *
    * @return \Nuntius\UpdateManager
+   *   The update manager.
    */
   public static function getUpdateManager() {
-    $updates = self::getSettings()['updates'];
-
-    return new UpdateManager($updates);
+    return self::container()->get('manager.update');
   }
 
   /**
