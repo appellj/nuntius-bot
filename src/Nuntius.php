@@ -123,9 +123,7 @@ class Nuntius {
    *   The task manager object.
    */
   public static function getTasksManager() {
-    $tasks = self::getSettings()['tasks'];
-
-    return new TasksManager($tasks);
+    return self::container()->get('manager.task')->setTasks(self::getSettings()['tasks']);
   }
 
   /**

@@ -10,6 +10,20 @@ class TasksManager {
   use NuntiusServicesTrait;
 
   /**
+   * The DB service.
+   *
+   * @var NuntiusRethinkdb
+   */
+  protected $db;
+
+  /**
+   * The entity manager service.
+   *
+   * @var EntityManager
+   */
+  protected $entityManager;
+
+  /**
    * List of tasks.
    *
    * @var TaskBaseInterface[]
@@ -19,16 +33,41 @@ class TasksManager {
   /**
    * Constructing the tasks manager.
    *
-   * @param array $tasks
-   *   List of all the tasks.
+   * @param NuntiusRethinkdb $db
+   *   The DB service.
+   * @param EntityManager $entity_manager
+   *   The entity manager service.
    */
-  function __construct($tasks) {
-    $db = Nuntius::getRethinkDB();
-    $entity_manager = Nuntius::getEntityManager();
+  function __construct(NuntiusRethinkdb $db, EntityManager $entity_manager) {
+    $this->db = $db;
+    $this->entityManager = $entity_manager;
+  }
 
+  /**
+   * Se the tasks.
+   *
+   * @param array $tasks
+   *   List of tasks form.
+   *
+   * @return $this
+   *   The current instance.
+   */
+  public function setTasks($tasks) {
     foreach ($tasks as $task => $namespace) {
-      $this->tasks[$task] = new $namespace($db, $task, $entity_manager);
+      $this->tasks[$task] = new $namespace($this->db, $task, $this->entityManager);
     }
+
+    return $this;
+  }
+
+  /**
+   * Get all the tasks.
+   *
+   * @return TaskBaseInterface[]
+   *   All the teaks.
+   */
+  public function getTasks() {
+    return $this->tasks;
   }
 
   /**
@@ -42,16 +81,6 @@ class TasksManager {
    */
   public function get($task) {
     return $this->tasks[$task];
-  }
-
-  /**
-   * Get all the tasks.
-   *
-   * @return TaskBaseInterface[]
-   *   All the teaks.
-   */
-  public function getTasks() {
-    return $this->tasks;
   }
 
   /**

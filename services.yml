@@ -6,3 +6,7 @@ services:
   manager.entity:
     class: \Nuntius\EntityManager
     arguments: ['@rethinkdb']
+
+  manager.task:
+    class: \Nuntius\TasksManager
+    arguments: ['@rethinkdb', '@manager.entity']

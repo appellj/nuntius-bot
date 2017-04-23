@@ -12,6 +12,13 @@ class EntityManager {
   protected $entities;
 
   /**
+   * The DB service.
+   *
+   * @var NuntiusRethinkdb
+   */
+  protected $db;
+
+  /**
    * Constructing the entity manager.
    *
    * @param NuntiusRethinkdb $db
