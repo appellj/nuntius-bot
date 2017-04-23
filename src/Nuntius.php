@@ -6,7 +6,6 @@ use Slack\RealTimeClient;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
-use Symfony\Component\Yaml\Yaml;
 use React\EventLoop\Factory;
 
 class Nuntius {
@@ -20,6 +19,7 @@ class Nuntius {
    * @throws \Exception
    */
   public static function bootstrap() {
+    $token = self::getSettings()->getSetting('access_token');
 
     if (empty($token)) {
       throw new \Exception('The access token is missing');
@@ -28,7 +28,7 @@ class Nuntius {
     // Set up stuff.
     $client_loop = Factory::create();
     $client = new RealTimeClient($client_loop);
-    $client->setToken(self::getSettings()->getSetting('access_token'));
+    $client->setToken($token);
 
     return $client;
   }
@@ -59,6 +59,8 @@ class Nuntius {
 
     $container = new ContainerBuilder();
     $loader = new YamlFileLoader($container, new FileLocator(__DIR__ . '/../'));
+
+    $loader->load('services.yml');
 
     // Load all the services files.
     foreach (self::getSettings()->getSetting('services') as $service) {

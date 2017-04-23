@@ -33,6 +33,5 @@ dispatchers:
     tom: '\Nuntius\Examples\Names\Tom::name'
     hal: '\Nuntius\Examples\Names\HAL9000::name'
 services:
-  - 'services.yml'
   - 'services.local.yml'
 access_token: ''
