@@ -41,6 +41,8 @@ class TasksManager {
   function __construct(NuntiusRethinkdb $db, EntityManager $entity_manager) {
     $this->db = $db;
     $this->entityManager = $entity_manager;
+
+    $this->setTasks(Nuntius::getSettings()['tasks']);
   }
 
   /**

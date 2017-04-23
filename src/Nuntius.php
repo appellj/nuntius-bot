@@ -113,7 +113,7 @@ class Nuntius {
    *   The entity manager.
    */
   public static function getEntityManager() {
-    return self::container()->get('manager.entity')->setEntities(self::getSettings()['entities']);
+    return self::container()->get('manager.entity');
   }
 
   /**
@@ -123,7 +123,7 @@ class Nuntius {
    *   The task manager object.
    */
   public static function getTasksManager() {
-    return self::container()->get('manager.task')->setTasks(self::getSettings()['tasks']);
+    return self::container()->get('manager.task');
   }
 
   /**
