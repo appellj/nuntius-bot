@@ -143,9 +143,7 @@ class Nuntius {
    *   Nuntius dispatcher manager.
    */
   public static function getDispatcher() {
-    $dispatcher = new NuntiusDispatcher(self::getSettings()['dispatchers']);
-
-    return $dispatcher->buildDispatcher();
+    return self::container()->get('dispatcher')->buildDispatcher();
   }
 
 }

@@ -14,3 +14,7 @@ services:
   manager.update:
     class: \Nuntius\UpdateManager
     arguments: ['@rethinkdb', '@manager.entity']
+
+  dispatcher:
+    class: \Nuntius\NuntiusDispatcher
+    arguments: []

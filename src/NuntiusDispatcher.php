@@ -23,11 +23,9 @@ class NuntiusDispatcher {
   /**
    * NuntiusDispatcher constructor.
    *
-   * @param $dispatchers
-   *   List of dispatchers.
    */
-  function __construct($dispatchers) {
-    $this->dispatchers = $dispatchers;
+  function __construct() {
+    $this->dispatchers = Nuntius::getSettings()['dispatchers'];
   }
 
   /**
