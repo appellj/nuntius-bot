@@ -48,7 +48,7 @@ class TasksManager {
   }
 
   /**
-   * Se the tasks.
+   * Set the tasks.
    *
    * @param array $tasks
    *   List of tasks form.

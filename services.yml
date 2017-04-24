@@ -3,6 +3,10 @@ services:
   config:
     class: \Nuntius\NuntiusConfig
 
+  dispatcher:
+    class: \Nuntius\NuntiusDispatcher
+    arguments: ['@config']
+
   rethinkdb:
     class: \Nuntius\NuntiusRethinkdb
     arguments: ['@config']
@@ -19,6 +23,3 @@ services:
     class: \Nuntius\UpdateManager
     arguments: ['@rethinkdb', '@manager.entity', '@config']
 
-  dispatcher:
-    class: \Nuntius\NuntiusDispatcher
-    arguments: ['@config']
