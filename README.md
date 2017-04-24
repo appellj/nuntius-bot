@@ -565,6 +565,14 @@ abstract class GitHubWebhooksAbstract implements GitHubWebhooksInterface {
 }
 ```
 
+## Services
+All the managers(will be covered below) are defined as Symfony services. In a
+nut shell, a service is class which implement a logic and can receive other
+services as an argument and can be injected to other services as well. For more
+info go to the [DependencyInjection Component](http://symfony.com/doc/current/components/dependency_injection.html)
+documentation.
+
+
 ## Uncovered API to this point
 We covered a lot of the integration you can have with Nuntius and slack but
 let's look at some code snippets:
