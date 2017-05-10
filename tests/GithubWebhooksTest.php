@@ -83,7 +83,7 @@ class GithubWebhooksTest extends WebhooksTestsAbstract {
     ]);
 
     $process = $this->rethinkdb->getTable('logger')
-      ->filter(\r\row('logging')->eq('opened_pull_request'))
+      ->filter(\r\row('logging')->eq('opened_' . $key))
       ->run($this->rethinkdb->getConnection())
       ->toArray();
 
