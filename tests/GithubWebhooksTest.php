@@ -30,11 +30,15 @@ class GithubWebhooksTest extends WebhooksTestsAbstract {
     $this->assertNotEmpty($failed_success);
 
     // Try failed unknown event.
-    $this->client->post('github', [
-      'json' => [
-        'action' => 'open',
-      ]
-    ]);
+    try {
+      $this->client->post('github', [
+        'json' => [
+          'action' => 'open',
+        ]
+      ]);
+    }
+    catch (ServerException $e) {
+    }
 
     $failed_success = $this->rethinkdb->getTable('logger')
       ->filter(\r\row('type')->eq('error'))
@@ -51,7 +55,7 @@ class GithubWebhooksTest extends WebhooksTestsAbstract {
    */
   public function testKnownWebhook() {
     $this->mockOpenWebhook('pull_request');
-//    $this->mockOpenWebhook('issue');
+    $this->mockOpenWebhook('issue');
   }
 
   /**
