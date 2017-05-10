@@ -11,7 +11,7 @@ class GithubWebhooksTest extends GithubWebhooksTestsAbstract {
    * Testing failed requests.
    */
   public function testFailRequest() {
-    $this->client->post('github.php', [
+    $this->client->post('github', [
       'json' => []
     ]);
 
@@ -25,7 +25,7 @@ class GithubWebhooksTest extends GithubWebhooksTestsAbstract {
     $this->assertNotEmpty($failed_success);
 
     // Try failed unknown event.
-    $this->client->post('github.php', [
+    $this->client->post('github', [
       'json' => [
         'action' => 'open',
       ]
@@ -57,7 +57,7 @@ class GithubWebhooksTest extends GithubWebhooksTestsAbstract {
    */
   protected function mockOpenWebhook($key) {
     // Testing pull request process.
-    $this->client->post('github.php', [
+    $this->client->post('github', [
       'json' => [
         'action' => 'opened',
         $key => [

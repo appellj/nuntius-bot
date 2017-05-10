@@ -41,6 +41,7 @@ webhooks:
   github:
     opened: '\Nuntius\Webhooks\GitHub\Opened'
 
+# List of webhooks and te matcher handler.
 webhooks_routing:
   'github': '\Nuntius\WebhooksRounting\GitHub'
 
