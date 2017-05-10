@@ -1,19 +1,24 @@
 <?php
 
 namespace tests;
+use GuzzleHttp\Exception\ServerException;
 
 /**
  * Testing entity.
  */
-class GithubWebhooksTest extends GithubWebhooksTestsAbstract {
+class GithubWebhooksTest extends WebhooksTestsAbstract {
 
   /**
    * Testing failed requests.
    */
   public function testFailRequest() {
-    $this->client->post('github', [
-      'json' => []
-    ]);
+    try {
+      $this->client->post('github', [
+        'json' => []
+      ]);
+    }
+    catch (ServerException $e) {
+    }
 
     $failed_success = $this->rethinkdb->getTable('logger')
       ->filter(\r\row('type')->eq('error'))
