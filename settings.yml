@@ -44,6 +44,7 @@ webhooks:
 # List of webhooks and te matcher handler.
 webhooks_routing:
   'github': '\Nuntius\WebhooksRounting\GitHub'
+  'buttons': '\Nuntius\WebhooksRounting\Buttons'
 
 # List of event objects for event dispatcher.
 dispatcher:
@@ -71,3 +72,6 @@ cron:
 
 # Slack access token.
 access_token: ''
+
+# App token for buttons.
+app_token: ''

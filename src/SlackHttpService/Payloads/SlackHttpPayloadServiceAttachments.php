@@ -26,6 +26,7 @@ class SlackHttpPayloadServiceAttachments extends SlackHttpPayloadServiceAbstract
       'footer' => '',
       'footer_icon' => '',
       'ts' => '',
+      'actions' => [],
     ];
   }
 
@@ -207,6 +208,50 @@ class SlackHttpPayloadServiceAttachments extends SlackHttpPayloadServiceAbstract
    */
   public function setTs($ts) {
     $this->payload['ts'] = $ts;
+
+    return $this;
+  }
+
+  /**
+   * Set the ts.
+   *
+   * @param array $actions
+   *   List of actions.
+   *
+   * @return SlackHttpPayloadServiceAttachments
+   */
+  public function setActions(array $actions) {
+    $this->payload['actions'] = $actions;
+
+    return $this;
+  }
+
+  /**
+   * Set the token of the app.
+   *
+   * @param string $token
+   *   The token of your app.
+   *
+   * @return SlackHttpPayloadServiceAttachments
+   *   The current instance.
+   */
+  public function setToken($token) {
+    $this->payload['token'] = $token;
+
+    return $this;
+  }
+
+  /**
+   * Set the response url when a button is clicked.
+   *
+   * @param string $response_url
+   *   The response url.
+   *
+   * @return SlackHttpPayloadServiceAttachments
+   *   The current instance.
+   */
+  public function setResponseUrl($response_url) {
+    $this->payload['response_url'] = $response_url;
 
     return $this;
   }
