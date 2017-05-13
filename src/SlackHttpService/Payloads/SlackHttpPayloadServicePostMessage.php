@@ -23,8 +23,6 @@ class SlackHttpPayloadServicePostMessage extends SlackHttpPayloadServiceAbstract
       'thread_ts' => '',
       'reply_broadcast' => '',
       'mrkdwn' => TRUE,
-      'token' => '',
-      'response_url' => '',
     ];
   }
 
@@ -224,36 +222,6 @@ class SlackHttpPayloadServicePostMessage extends SlackHttpPayloadServiceAbstract
    */
   public function setReplyBroadcast($reply_broadcast) {
     $this->payload['reply_broadcast'] = $reply_broadcast;
-
-    return $this;
-  }
-
-  /**
-   * Set the token of the app.
-   *
-   * @param string $token
-   *   The token of your app.
-   *
-   * @return SlackHttpPayloadServicePostMessage
-   *   The current instance.
-   */
-  public function setToken($token) {
-    $this->payload['token'] = $token;
-
-    return $this;
-  }
-
-  /**
-   * Set the response url when a button is clicked.
-   *
-   * @param string $response_url
-   *   The response url.
-   *
-   * @return SlackHttpPayloadServicePostMessage
-   *   The current instance.
-   */
-  public function setResponseUrl($response_url) {
-    $this->payload['response_url'] = $response_url;
 
     return $this;
   }

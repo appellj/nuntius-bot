@@ -27,6 +27,8 @@ class SlackHttpPayloadServiceAttachments extends SlackHttpPayloadServiceAbstract
       'footer_icon' => '',
       'ts' => '',
       'actions' => [],
+      'username' => 'nuntius',
+      'as_user' => TRUE,
     ];
   }
 
@@ -143,6 +145,20 @@ class SlackHttpPayloadServiceAttachments extends SlackHttpPayloadServiceAbstract
   }
 
   /**
+   * Set the callback ID.
+   *
+   * @param string $callback_id
+   *   The callback ID.
+   *
+   * @return SlackHttpPayloadServiceAttachments
+   */
+  public function setCallbackId($callback_id) {
+    $this->payload['callback_id'] = $callback_id;
+
+    return $this;
+  }
+
+  /**
    * Set the fields.
    *
    * @param array $fields
@@ -222,36 +238,6 @@ class SlackHttpPayloadServiceAttachments extends SlackHttpPayloadServiceAbstract
    */
   public function setActions(array $actions) {
     $this->payload['actions'] = $actions;
-
-    return $this;
-  }
-
-  /**
-   * Set the token of the app.
-   *
-   * @param string $token
-   *   The token of your app.
-   *
-   * @return SlackHttpPayloadServiceAttachments
-   *   The current instance.
-   */
-  public function setToken($token) {
-    $this->payload['token'] = $token;
-
-    return $this;
-  }
-
-  /**
-   * Set the response url when a button is clicked.
-   *
-   * @param string $response_url
-   *   The response url.
-   *
-   * @return SlackHttpPayloadServiceAttachments
-   *   The current instance.
-   */
-  public function setResponseUrl($response_url) {
-    $this->payload['response_url'] = $response_url;
 
     return $this;
   }

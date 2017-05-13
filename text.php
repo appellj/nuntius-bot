@@ -15,8 +15,7 @@ $attachment
   ->setColor('#36a64f')
   ->setTitle('testing')
   ->setText('body')
-  ->setToken('')
-  ->setResponseUrl('')
+  ->setCallbackId('foo')
   ->setActions([
     [
       "name" => "game",
@@ -52,10 +51,10 @@ $message = new \SlackHttpService\Payloads\SlackHttpPayloadServicePostMessage();
 $message
   ->setChannel($im_room)
   ->setAttachments($attachments)
-  ->setText('foo')
-  ->setToken('')
-  ->setResponseUrl('');
+  ->setText('foo');
 
 // Posting the message.
-$slack->Chat()->postMessage($message);
+$foo = $slack->Chat()->postMessage($message);
+
+Kint::dump($foo);
 

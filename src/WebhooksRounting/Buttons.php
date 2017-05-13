@@ -16,7 +16,14 @@ class Buttons implements WebhooksRoutingControllerInterface {
    * {@inheritdoc}
    */
   public function response(Request $request) {
-    return new Response();
+    $payload = json_decode($request->request->get('payload'));
+    if ($payload->callback_id == 'foo') {
+      $actions = reset($payload->actions);
+
+
+
+    }
+    return new Response('');
   }
 
 }
