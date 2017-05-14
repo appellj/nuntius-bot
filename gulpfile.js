@@ -33,8 +33,8 @@ gulp.task('serve', ['generate'], function() {
       return new Promise((resolve) => setTimeout(resolve, time));
     }
 
-    sleep(1000).then(() => {
-      // Wait for a 1.5 second since daux take time until the files are
+    sleep(200).then(() => {
+      // Wait for a 0.2 seconds since daux take time until the files are
       // generated.
       browserSync.reload();
     });
