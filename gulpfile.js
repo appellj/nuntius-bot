@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var ghPages = require('gulp-gh-pages');
 var run = require('gulp-run');
+var browserSync = require('browser-sync').create();
 
 /**
  * Deploy the site.
@@ -14,6 +15,29 @@ gulp.task('deploy', function() {
  * Generating the text.
  */
 gulp.task('generate', function() {
-  return run('vendor/bin/daux --source=docs/source/ --destination=docs/static')
-    .exec();
+  return run('vendor/bin/daux --source=docs/source/ --destination=docs/static').exec();
+});
+
+/**
+ * Live reload for the static generate task.
+ */
+gulp.task('serve', ['generate'], function() {
+  browserSync.init({
+    server : './docs/static',
+    open: true
+  });
+
+  gulp.watch('./docs/source/**/*', ['generate']).on('change', function() {
+
+    function sleep (time) {
+      return new Promise((resolve) => setTimeout(resolve, time));
+    }
+
+    sleep(1000).then(() => {
+      // Wait for a 1.5 second since daux take time until the files are
+      // generated.
+      browserSync.reload();
+    });
+
+  });
 });
