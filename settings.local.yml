@@ -1,0 +1,14 @@
+# RethinkDB connection information.
+rethinkdb:
+  host: localhost
+  port: 28015
+  db: nuntius
+  api_key:
+  timeout: 30
+# Set you bot access token.
+access_token: 'xoxb-179216996464-3clhgJS9q0yOV9Kvi77RiyG8'
+app_token: 'JilfIdWbIVLdAVsDrNsSvfdp'
+# Keep for testing.
+dispatchers:
+  github_opened:
+    notify_user: '\tests\overrides\NuntiusGitHubOpenedExampleOverride::act'

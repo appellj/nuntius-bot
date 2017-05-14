@@ -4,4 +4,4 @@ rethinkdb_data/
 node_modules
 .publish
 
-settings/*.local.yml
+settings/credentials.local.yml
