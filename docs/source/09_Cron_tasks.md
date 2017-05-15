@@ -12,7 +12,7 @@ the file.***
 The cron task will be fired each minutes but that should not bother you. Let's
 have a look on the code.
 
-First, the `settings.yml` file:
+First, the `hooks.yml` file:
 
 ```yml
 cron:

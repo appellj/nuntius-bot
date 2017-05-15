@@ -3,7 +3,7 @@ integration via WebSocket and push events AKA RTM events. For any operation on
 slack, there is a matching RTM event. You can look on the list 
 [here](https://api.slack.com/rtm#events).
 
-Let's see how to interact with the message events. In the `settings.yml` we have
+Let's see how to interact with the message events. In the `hooks.yml` we have
 the `events` section:
 ```yml
 events:

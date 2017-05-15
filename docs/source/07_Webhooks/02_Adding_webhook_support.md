@@ -6,7 +6,7 @@ services. i.e - setting an endpoint to display a list of entities is a bad
 practice.
 
 ## Adding a routing
-As always, let's go to the `settings.yml` file:
+As always, let's go to the `hooks.yml` file:
 ```yml
 webhooks_routing:
   'github': '\Nuntius\WebhooksRounting\GitHub'

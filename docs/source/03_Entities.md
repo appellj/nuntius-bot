@@ -1,6 +1,6 @@
 At some point you might want to keep stuff in the DB. The database is based on 
 Rethinkdb. Similar to event integration definition, entity defined in the 
-`settings.yml` file:
+`hooks.yml` file:
 ```yml
 entities:
   reminders: '\Nuntius\Entity\Reminders'

@@ -1,5 +1,5 @@
 One way to communicate with Nuntius is via text. First, let's have a look at the
-`settings.yml` file:
+`hooks.yml` file:
 ```yml
 tasks:
   reminders: '\Nuntius\Tasks\Reminders'

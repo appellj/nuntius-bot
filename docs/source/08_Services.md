@@ -6,11 +6,11 @@ documentation.
 
 
 You can add as many services as you'd like to. As always, let's have a look at
-the `settings.yml` file:
+the `hooks.yml` file:
 ```yml
 services:
   - 'services.local.yml'
 ```
 
 By default, you can add services in the `services.local.yml` but if you want to
-manage that in other files you can add them in the `settings.local.yml` file.
+manage that in other files you can add them in the `hooks.local.yml` file.
