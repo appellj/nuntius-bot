@@ -1,8 +1,8 @@
-Gizra became a company when a lot of the employees are remote: USA, 
-Canada, Spain and the list goes on. That status required from us to start using 
-Slack. But the problem is that we wanted Slack to be cool. The obvious idea is 
-to have a bot. The bot will interact with us and might improve the way we 
-communicate.
+[Gizra](http://gizra.com) became a company when a lot of the employees are 
+remote: USA, Canada, Spain and the list goes on. That status required from us to
+start using Slack. But the problem is that we wanted Slack to be cool. The
+obvious idea is to have a bot. The bot will interact with us and might improve 
+the way we communicate.
 
 ## Origin
 Like any awesome superhero, Nuntius have an origin story. It's not a tragic 
@@ -24,12 +24,18 @@ and under `Custom integration` you'll see your bot. Click on the bot to get the
 access token.
 
 ```bash
-cp settings.local.example.yml settings.local.yml
+cd settings
+cp credentials.local.yml credentials.yml
+```
+
+Set the proper credentials and then:
+
+``` bash
 composer install
 rethinkdb
 ```
 
-Open the settings file you created and set the token you copied, and run:
+Now, that you set up credentials file correctly run:
 ```bash
 php console.php nuntius:install
 php bot.php
@@ -38,8 +44,10 @@ php bot.php
 That's it. Nuntius is up and running.
 
 ## Integrating
-Integration can be done through the main `settings.yml` file(or in case you
-forked the project through the `settings.local.yml`). The `settings.local.yml`
-file will override the settings of the `settings.yml` file.
+Nuntius integrations is done through the `hooks.yml` file. All the events,
+entities, tasks and other features(you will soon see) are listed in `hooks.yml`.
+In case you forked the project, and that the reasonable scenario, you need to
+create a `hooks.local.yml` in the settings directory.
 
-Let's go through the various integrations.
+The `hooks.local.yml` allow you to override the definitions in `hooks.yml` thus
+gives you the option to swap everything in the system.
