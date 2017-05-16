@@ -35,9 +35,15 @@ class RestartQuestion extends TaskConversationAbstract implements TaskConversati
    * Get the user first name.
    */
   public function questionGetTaskId() {
+    $tasks = $this->getRestartableTasks();
+
+    $labels = [];
+    foreach ($tasks as $task) {
+      $labels[] = '`' . $task['label'] . '`';
+    }
+
     // Get all the un-temp context question.
-    $task = '';
-    return 'So... You want to delete information of a question. For which question?';
+    return "So... You want to delete information of a question. For which question?\n" . implode(',', $labels);
   }
 
   /**
@@ -52,8 +58,6 @@ class RestartQuestion extends TaskConversationAbstract implements TaskConversati
    */
   public function collectAllAnswers() {
     // Delete the context of that question.
-
-    //
     return 'I deleted for you the information. Let\'s start again';
   }
 

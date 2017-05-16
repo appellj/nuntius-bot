@@ -25,7 +25,7 @@ abstract class TaskConversationAbstract extends TaskBaseAbstract implements Task
     // Setting up the context.
     $context = [
       'user' => $this->data['user'],
-      'task' => $this->task_id,
+      'task' => $this->taskId,
     ];
 
     // Check if we have a running context for the user.
@@ -120,7 +120,7 @@ abstract class TaskConversationAbstract extends TaskBaseAbstract implements Task
   protected function checkForContext(Table $table) {
     $results = $table
       ->filter(\r\row('user')->eq($this->data['user']))
-      ->filter(\r\row('task')->eq($this->task_id))
+      ->filter(\r\row('task')->eq($this->taskId))
       ->run($this->db->getConnection());
 
     return $results->toArray();
@@ -152,6 +152,33 @@ abstract class TaskConversationAbstract extends TaskBaseAbstract implements Task
     $scope = reset($scopes);
 
     return new $scope['constraint'];
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getRestartableTasks() {
+    $tasks_manager = Nuntius::getTasksManager();
+
+    $restartable_tasks = [];
+    foreach ($tasks_manager->getTasks() as $task) {
+
+      if (!$task instanceof TaskConversationInterface) {
+        // Get only conversation tasks.
+        continue;
+      }
+
+      if ($task->conversationScope() != 'forever') {
+        // Only tasks which their context should last for ever.
+        continue;
+      }
+
+      // Get the ID and the label of the task.
+      $scopes = $task->scope();
+      $restartable_tasks[] = ['id' => $task->getTaskId(), 'label' => reset($scopes)['human_command']];
+    }
+
+    return $restartable_tasks;
   }
 
 }
