@@ -88,9 +88,15 @@ abstract class TaskConversationAbstract extends TaskBaseAbstract implements Task
     $context = reset($context);
     $context['questions'] = $context['questions']->getArrayCopy();
 
+    $constraint = $this->getConstraint();
+
     // Look for the answer we need to handle.
     foreach ($context['questions'] as $question => $answer) {
       if ($answer === FALSE) {
+
+        if ($constraint) {
+          // todo: get the constraint which match to the question and validate.
+        }
 
         $context['questions'][$question] = $text;
 
@@ -136,6 +142,16 @@ abstract class TaskConversationAbstract extends TaskBaseAbstract implements Task
     $running_context = $this->checkForContext($this->db->getTable('context'));
     $running_context = reset($running_context)->getArrayCopy();
     $this->entityManager->get('context')->delete($running_context['id']);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getConstraint() {
+    $scopes = $this->scope();
+    $scope = reset($scopes);
+
+    return new $scope['constraint'];
   }
 
 }

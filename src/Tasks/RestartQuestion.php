@@ -19,8 +19,7 @@ class RestartQuestion extends TaskConversationAbstract implements TaskConversati
       '/delete information/' => [
         'human_command' => 'delete information',
         'description' => 'Delete an information',
-        // todo: implement.
-        'constraint' => '\Nuntius\TasksConstraint\RestartQuestion',
+        'constraint' => '\Nuntius\TasksConstraint\RestartQuestionConstraint',
       ],
     ];
   }
