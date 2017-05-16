@@ -43,6 +43,7 @@ class Message extends NuntiusPluginAbstract {
           ->setData($data);
 
         // Save the answer.
+        // todo: Validate the values from the command constraint.
         $task->setAnswer($this->data['text']);
 
         // Next question, please.
