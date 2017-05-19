@@ -92,19 +92,26 @@ abstract class TaskConversationAbstract extends TaskBaseAbstract implements Task
 
     // Look for the answer we need to handle.
     foreach ($context['questions'] as $question => $answer) {
-      if ($answer === FALSE) {
-
-        if ($constraint) {
-          // todo: get the constraint which match to the question and validate.
-        }
-
-        $context['questions'][$question] = $text;
-
-        $this->entityManager->get('context')
-          ->load($context['id'])
-          ->update($context['id'], $context);
-        break;
+      if ($answer !== FALSE) {
+        continue;
       }
+
+      if ($constraint) {
+        $method = str_replace('question', 'validate', $question);
+
+        if (method_exists($constraint, $method)) {
+          if (($error = $constraint->{$method}($text)) !== TRUE) {
+            return $error;
+          }
+        }
+      }
+
+      $context['questions'][$question] = $text;
+
+      $this->entityManager->get('context')
+        ->load($context['id'])
+        ->update($context['id'], $context);
+      break;
     }
   }
 
