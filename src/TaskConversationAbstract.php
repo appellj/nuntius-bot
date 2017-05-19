@@ -161,31 +161,4 @@ abstract class TaskConversationAbstract extends TaskBaseAbstract implements Task
     return new $scope['constraint'];
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getRestartableTasks() {
-    $tasks_manager = Nuntius::getTasksManager();
-
-    $restartable_tasks = [];
-    foreach ($tasks_manager->getTasks() as $task) {
-
-      if (!$task instanceof TaskConversationInterface) {
-        // Get only conversation tasks.
-        continue;
-      }
-
-      if ($task->conversationScope() != 'forever') {
-        // Only tasks which their context should last for ever.
-        continue;
-      }
-
-      // Get the ID and the label of the task.
-      $scopes = $task->scope();
-      $restartable_tasks[] = ['id' => $task->getTaskId(), 'label' => reset($scopes)['human_command']];
-    }
-
-    return $restartable_tasks;
-  }
-
 }

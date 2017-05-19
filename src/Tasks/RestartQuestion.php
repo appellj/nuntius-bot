@@ -2,6 +2,7 @@
 
 namespace Nuntius\Tasks;
 
+use Nuntius\Nuntius;
 use Nuntius\TaskConversationAbstract;
 use Nuntius\TaskConversationInterface;
 
@@ -35,7 +36,7 @@ class RestartQuestion extends TaskConversationAbstract implements TaskConversati
    * Get the user first name.
    */
   public function questionGetTaskId() {
-    $tasks = $this->getRestartableTasks();
+    $tasks = Nuntius::getTasksManager()->getRestartableTasks();
 
     $labels = [];
     foreach ($tasks as $task) {

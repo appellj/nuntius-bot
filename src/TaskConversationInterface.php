@@ -93,11 +93,4 @@ interface TaskConversationInterface extends TaskBaseInterface {
    */
   public function getConstraint();
 
-  /**
-   * Get the restartable tasks - tasks which their context last forever.
-   *
-   * @return array
-   */
-  public function getRestartableTasks();
-
 }
