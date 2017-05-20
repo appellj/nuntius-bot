@@ -61,15 +61,14 @@ class RestartQuestion extends TaskConversationAbstract implements TaskConversati
     // Delete the context of that question.
     $text = 'I deleted for you the information.';
 
-    if (in_array($this->answers['StartingAgain'], ['yes', 'y'])) {
-      $text .= " Let's start again.";
-    }
-
     // Get the task ID.
     $tasks = Nuntius::getTasksManager()->getRestartableTasks();
 
+    $task_id = '';
     foreach ($tasks as $task) {
       if ($task['label'] == $this->answers['GetTaskId']) {
+
+        $task_id = $task['id'];
         $results = $this->db
           ->getTable('context')
           ->filter(\r\row('task')->eq($task['id']))
@@ -80,6 +79,14 @@ class RestartQuestion extends TaskConversationAbstract implements TaskConversati
           Nuntius::getEntityManager()->get('context')->delete($result->getArrayCopy()['id']);
         }
       }
+    }
+
+    if (in_array($this->answers['StartingAgain'], ['yes', 'y'])) {
+      $text .= " Let's start again.";
+
+      /** @var TaskConversationInterface $task */
+      $task = Nuntius::getTasksManager()->get($task_id);
+      $text .= "\n" . $task->startTalking();
     }
 
     return $text;
