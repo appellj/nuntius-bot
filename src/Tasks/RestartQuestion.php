@@ -59,7 +59,30 @@ class RestartQuestion extends TaskConversationAbstract implements TaskConversati
    */
   public function collectAllAnswers() {
     // Delete the context of that question.
-    return 'I deleted for you the information. Let\'s start again';
+    $text = 'I deleted for you the information.';
+
+    if (in_array($this->answers['StartingAgain'], ['yes', 'y'])) {
+      $text .= " Let's start again.";
+    }
+
+    // Get the task ID.
+    $tasks = Nuntius::getTasksManager()->getRestartableTasks();
+
+    foreach ($tasks as $task) {
+      if ($task['label'] == $this->answers['GetTaskId']) {
+        $results = $this->db
+          ->getTable('context')
+          ->filter(\r\row('task')->eq($task['id']))
+          ->filter(\r\row('user')->eq($this->data['user']))
+          ->run(Nuntius::getRethinkDB()->getConnection());
+
+        foreach ($results as $result) {
+          Nuntius::getEntityManager()->get('context')->delete($result->getArrayCopy()['id']);
+        }
+      }
+    }
+
+    return $text;
   }
 
 }

@@ -158,6 +158,10 @@ abstract class TaskConversationAbstract extends TaskBaseAbstract implements Task
     $scopes = $this->scope();
     $scope = reset($scopes);
 
+    if (empty($scope['constraint'])) {
+      return;
+    }
+
     return new $scope['constraint'];
   }
 

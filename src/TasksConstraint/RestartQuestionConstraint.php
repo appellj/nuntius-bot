@@ -26,7 +26,7 @@ class RestartQuestionConstraint extends AbstractQuestionConstraint {
         return TRUE;
       }
     }
-    return "Hmmm..... it's look";
+    return "Hmmm..... it's look like `{$value}` is not a task I know.";
   }
 
   /**
@@ -39,7 +39,7 @@ class RestartQuestionConstraint extends AbstractQuestionConstraint {
    */
   public function validateStartingAgain($value) {
     if (!in_array($value, ['yes', 'no', 'y', 'n'])) {
-      return 'The answer need to be one of the following: ' . implode(', ' , ['yes', 'no', 'y', 'n']);
+      return 'The answer need to be one of the following: ' . implode(', ' , ['`yes`', '`no`', '`y`', '`n`']);
     }
 
     return TRUE;
