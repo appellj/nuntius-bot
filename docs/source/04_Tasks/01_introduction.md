@@ -21,4 +21,4 @@ conversation scope:
   for lunch. **But** a temporary scope may not be relevant forever but we might
   want to use in the future. We would likely want to keep the places the user
   invited food from so we could suggest that in the past.
-  
+ 
