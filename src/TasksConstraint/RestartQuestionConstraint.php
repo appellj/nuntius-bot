@@ -8,7 +8,6 @@ use Nuntius\Nuntius;
 /**
  * Validating the restart question tasks.
  */
-
 class RestartQuestionConstraint extends AbstractQuestionConstraint {
 
   /**
