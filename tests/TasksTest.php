@@ -66,6 +66,7 @@ class TasksTest extends TestsAbstract {
       'help' => $this->tasks->get('help'),
       'introduction' => $this->tasks->get('introduction'),
       'restart_question' => $this->tasks->get('restart_question'),
+      'notify_team' => $this->tasks->get('notify_team'),
     ]);
   }
 
@@ -94,6 +95,7 @@ class TasksTest extends TestsAbstract {
       '`remind me REMINDER`: Next time you log in I will remind you what you  wrote in the REMINDER',
       '`nice to meet you`: We will do a proper introduction',
       '`delete information`: Delete an information',
+      '`notify team`: Notify the team about something',
     ];
     $this->assertEquals($this->tasks->get('help')->listOfScopes(), implode("\n", $helps));
   }
