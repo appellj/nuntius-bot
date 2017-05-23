@@ -2,7 +2,6 @@
 
 namespace Nuntius\Tasks;
 
-use Nuntius\Nuntius;
 use Nuntius\TaskConversationAbstract;
 use Nuntius\TaskConversationInterface;
 use Slack\DirectMessageChannel;
@@ -59,9 +58,9 @@ class NotifyTeam extends TaskConversationAbstract implements TaskConversationInt
     foreach ($members as $member) {
       $user = str_replace(['<@', '>'], '', $member);
 
-      $this->client->getDMByUserId($user)->then(function (DirectMessageChannel $channel) use($row) {
+      $this->client->getDMByUserId(trim($user))->then(function (DirectMessageChannel $channel) use($row) {
         // Send the reminder.
-        $text = "Hi, <@{$row['user']}> ask from me to tell you:\n{$row['questions']['questionWhatToSay']}";
+        $text = "Hi, <@{$row['user']}> asked from me to tell you:\n{$row['questions']['questionWhatToSay']}";
         $this->client->send($text, $channel);
       });
     }
@@ -70,7 +69,7 @@ class NotifyTeam extends TaskConversationAbstract implements TaskConversationInt
     $row['questions']['questionWhatToSay'] = FALSE;
     $this->entityManager->get('context')->update($row['id'], $row);
 
-    return 'I notified the team';
+    return 'Awesome! I notified the team.';
   }
 
 }
