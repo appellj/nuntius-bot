@@ -34,7 +34,7 @@ class NotifyTeam extends TaskConversationAbstract implements TaskConversationInt
    * Get the team members.
    */
   public function questionGetTeamMembers() {
-    return 'Who are your team members?';
+    return 'Who are your team members? Use a comma(,) after a username.';
   }
 
   /**
@@ -57,6 +57,11 @@ class NotifyTeam extends TaskConversationAbstract implements TaskConversationInt
     $members = explode(',', $row['questions']['questionGetTeamMembers']);
     foreach ($members as $member) {
       $user = str_replace(['<@', '>'], '', $member);
+
+      if (!$this->client) {
+        // We might be in a test environment. Skipping.
+        continue;
+      }
 
       $this->client->getDMByUserId(trim($user))->then(function (DirectMessageChannel $channel) use($row) {
         // Send the reminder.
