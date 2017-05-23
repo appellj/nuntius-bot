@@ -69,8 +69,9 @@ class RestartQuestion extends TaskConversationAbstract implements TaskConversati
       if ($task['label'] == $this->answers['GetTaskId']) {
 
         $task_id = $task['id'];
-        $row = $this->getTaskContext($task_id, $this->data['user']);
-        Nuntius::getEntityManager()->get('context')->delete($row['id']);
+        if ($row = $this->getTaskContext($task_id, $this->data['user'])) {
+          Nuntius::getEntityManager()->get('context')->delete($row['id']);
+        }
       }
     }
 

@@ -136,7 +136,7 @@ class TasksTest extends TestsAbstract {
     $this->assertEquals('Do you want to start the process again or should I restart the question?', $restart->startTalking());
     $this->assertEquals($restart->setAnswer('maybe'), 'The answer need to be one of the following: `yes`, `no`, `y`, `n`');
     $restart->setAnswer('no');
-    $this->assertequals('I deleted for you the information.', $restart->startTalking());
+    $this->assertEquals('I deleted for you the information.', $restart->startTalking());
 
     // Now, checking with the restart question.
     $restart = $this->tasks->get('restart_question');
