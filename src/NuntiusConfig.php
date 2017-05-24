@@ -61,6 +61,7 @@ class NuntiusConfig {
     $path = __DIR__ . '/../settings/';
     $main_settings = Yaml::parse(file_get_contents($path . $file . '.yml'));
 
+    $local_settings = [];
     if (file_exists($path . $file . '.local.yml')) {
       $local_settings = Yaml::parse(file_get_contents($path . $file . '.local.yml'));
     }
@@ -84,7 +85,7 @@ class NuntiusConfig {
       }
     }
 
-    return $settings;
+    return array_merge($settings, $local_settings);
   }
 
   /**
