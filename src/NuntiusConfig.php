@@ -85,7 +85,15 @@ class NuntiusConfig {
       }
     }
 
-    return array_merge($settings, $local_settings);
+    foreach ($local_settings as $key => $value) {
+      if (in_array($key, array_keys($settings))) {
+        continue;
+      }
+
+      $settings[$key] = $value;
+    }
+
+    return $settings;
   }
 
   /**
